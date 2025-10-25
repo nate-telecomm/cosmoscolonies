@@ -10,13 +10,28 @@ var camera2: Camera3D
 var object: Node3D
 @export var isFirst: bool
 @export var gravity_strength: float = 8
+var MessageBox: TextEdit
+var EnterBox: LineEdit
+var SendButton: RichTextLabel
+
+func _text_submitted():
+	if EnterBox.text != "":
+		GlobalData.send_chat_message(EnterBox.text)
+		EnterBox.text = ""
 
 func _ready() -> void:
 	camera1 = $firstperson
 	camera2 = $raycamera/thirdperson
+	MessageBox = $chat/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Messages
+	EnterBox = $chat/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Messager
+	SendButton = $chat/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/PlayerName
 
 func _physics_process(delta: float) -> void:
-
+	var finished: String
+	for chat in GlobalData.chat_messages:
+		finished += "[%s]: %s" % [chat["user"], chat["msg"]] + "\n"
+		
+	MessageBox.text = finished
 	if isFirst:
 		camera1.make_current()
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -58,7 +73,7 @@ func _physics_process(delta: float) -> void:
 		if input_dir.length_squared() > 0.0001:
 			desired_velocity = input_dir.normalized() * SPEED
 			velocity = velocity.move_toward(desired_velocity, ACCEL * delta)
-
+			
 		if get_tree().current_scene.name != "Space":
 			velocity.y -= gravity_strength * delta
 		else:

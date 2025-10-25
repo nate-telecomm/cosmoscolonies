@@ -44,15 +44,10 @@ func _change_scene(player: CharacterBody3D) -> void:
 	# Wait a frame to make sure everything is ready
 	await tree.process_frame
 
-	# Place the player in the new scene
-	var spawn = new_scene.get_node_or_null("Spawn")
-	if spawn:
-		spawn.add_child(player)
-		player.global_transform = spawn.global_transform
-	else:
-		new_scene.add_child(player)
-		player.global_transform = saved_transform
-		player.velocity = Vector3.ZERO
+
+	new_scene.add_child(player)
+	player.position = Vector3(0, 50, 0)
+	player.velocity = Vector3.ZERO
 
 	# Free old scene
 	if old_scene and old_scene != new_scene:

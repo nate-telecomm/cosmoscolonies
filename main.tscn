@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://dlf5pxog21wtm"]
+[gd_scene load_steps=57 format=3 uid="uid://dlf5pxog21wtm"]
 
 [ext_resource type="Script" path="res://server_int.gd" id="1_kvpof"]
 [ext_resource type="Script" path="res://player-movement.gd" id="2_c1rg8"]
@@ -169,6 +169,9 @@ emission = Color(1, 1, 1, 1)
 material = SubResource("StandardMaterial3D_27lue")
 inner_radius = 350000.0
 outer_radius = 351000.0
+rings = 128
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_c8sgi"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_1ov3f"]
 
@@ -195,6 +198,10 @@ size = Vector3(50, 50, 50)
 
 [node name="Space" type="Node3D"]
 script = ExtResource("1_kvpof")
+
+[node name="LocalSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_bcgsy")
+volume_db = 2.36
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("2_oxsde")
@@ -234,7 +241,7 @@ stretch_mode = 5
 [node name="chat" parent="Player" instance=ExtResource("8_dg77c")]
 
 [node name="Bartholemew" type="StaticBody3D" parent="."]
-transform = Transform3D(80000, 0, 0, 0, 80000, 0, 0, 0, 80000, 360792, 324442, -439914)
+transform = Transform3D(400002, 0, 0, 0, 400002, 0, 0, 0, 400002, -86171, 324442, -701093)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bartholemew"]
 shape = SubResource("SphereShape3D_k31gl")
@@ -262,7 +269,7 @@ omni_attenuation = -0.152
 omni_shadow_mode = 0
 
 [node name="Bob" type="StaticBody3D" parent="." groups=["celestialbodies"]]
-transform = Transform3D(0.496967, 0.808545, -0.315083, -0.715592, 0.176456, -0.675862, -0.490866, 0.561354, 0.666283, 594438, 448635, -369746)
+transform = Transform3D(0.496967, 0.808545, -0.315083, -0.715592, 0.176456, -0.675862, -0.490866, 0.561354, 0.666283, 394748, 853317, -764305)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bob"]
 transform = Transform3D(10000, 0, 0, 0, 10000, 0, 0, 0, 10000, 0, 0, 0)
@@ -329,12 +336,8 @@ script = ExtResource("7_f7adk")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Umo/Atmosphere"]
 shape = SubResource("SphereShape3D_8ggpk")
 
-[node name="LocalSFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("8_bcgsy")
-volume_db = 2.36
-
 [node name="James" type="StaticBody3D" parent="." groups=["celestialbodies"]]
-transform = Transform3D(400002, 0, 0, 0, 400002, 0, 0, 0, 400002, 638124, 0, -816514)
+transform = Transform3D(400002, 0, 0, 0, 400002, 0, 0, 0, 400002, 638124, 0, -1.35458e+06)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="James"]
 shape = SubResource("SphereShape3D_a8vxh")
@@ -343,9 +346,16 @@ shape = SubResource("SphereShape3D_a8vxh")
 mesh = SubResource("SphereMesh_vjtou")
 
 [node name="CPUParticles3D" type="CPUParticles3D" parent="James"]
-transform = Transform3D(0.979475, -0.135753, 0.148997, 0.130207, 0.9904, 0.0464094, -0.153867, -0.0260564, 0.987748, 0, 0, 0)
+transform = Transform3D(0.490981, -0.418684, 0.763964, 0.0544798, 0.88998, 0.452733, -0.869466, -0.180663, 0.459773, 5.06639e-05, -0.0020073, 0.000556231)
 mesh = SubResource("TorusMesh_p8mue")
 gravity = Vector3(0, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="James"]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+script = ExtResource("7_f7adk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="James/Area3D"]
+shape = SubResource("SphereShape3D_c8sgi")
 
 [node name="Plnet" type="StaticBody3D" parent="." groups=["celestialbodies"]]
 transform = Transform3D(300, 0, 0, 0, 300, 0, 0, 0, 300, -269548, -19021.6, 49469.9)
@@ -379,3 +389,4 @@ initial_velocity_max = 5.0
 
 [connection signal="area_entered" from="Umo/Atmosphere" to="Umo/Atmosphere" method="_on_area_entered"]
 [connection signal="body_entered" from="Umo/Atmosphere" to="Umo/Atmosphere" method="_on_body_entered"]
+[connection signal="body_entered" from="James/Area3D" to="James/Area3D" method="_on_body_entered"]

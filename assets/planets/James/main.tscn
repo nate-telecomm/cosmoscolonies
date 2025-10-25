@@ -66,6 +66,7 @@ transform = Transform3D(192268, 0, 0, 0, 1, 0, 0, 0, 86563.4, 0, 0, 0)
 shape = SubResource("BoxShape3D_chdq2")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ground/CollisionShape3D"]
+transform = Transform3D(14.937, 0, 0, 0, 1, 0, 0, 0, 25.1748, 0, 0, 0)
 mesh = SubResource("BoxMesh_d24dm")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
