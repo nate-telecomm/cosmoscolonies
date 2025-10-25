@@ -26,4 +26,4 @@ func update_chat_display() -> void:
 	
 	chat_messages.text = text
 	
-	chat_messages.scroll_vertical = chat_messages.get_v_scroll_bar().max_value - 2
+	chat_messages.scroll_vertical = chat_messages.get_v_scroll_bar().max_value

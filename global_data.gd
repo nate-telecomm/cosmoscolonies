@@ -54,7 +54,7 @@ func get_nearest_gravity(player: CharacterBody3D) -> Node3D:
 	for gravity_source in nodes:
 		if not gravity_source is Node3D:
 			continue
-			
+
 		var radius: float = 0.0
 		if gravity_source.has_method("get_radius"):
 			radius = gravity_source.get_radius()
