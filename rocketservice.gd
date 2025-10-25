@@ -1,18 +1,4 @@
-extends Node3D
-
-var Player: CharacterBody3D
-
-func _ready() -> void:
-	Player = $CharacterBody3D
-	var json: String = """
-	{
-		"parts": [
-			{ "name": "antimatter_reactor" },
-			{ "name": "engine_mk1" }
-		]
-	}
-	"""
-	build_rocket(json, Player)
+extends Node
 	
 func get_part_height(part: Node3D) -> float:
 	for child in part.get_children():
@@ -28,8 +14,6 @@ func get_part_height(part: Node3D) -> float:
 						return shape.radius * 2
 	return 5
 	
-func _process(delta: float) -> void:
-	pass
 
 func build_rocket(json_string: String, parent_body: CharacterBody3D) -> Dictionary:
 	var blueprint = JSON.parse_string(json_string)

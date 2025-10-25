@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-var SPEED: float = 200000.0
+var SPEED: float = 100.0
 var ACCEL: float = 6000.0
 const ROT_SPEED: float = 2.0
 var AIR_DRAG: float
@@ -13,18 +13,25 @@ var object: Node3D
 var MessageBox: TextEdit
 var EnterBox: LineEdit
 var SendButton: RichTextLabel
+var RocketStats: Dictionary
 
 func _text_submitted():
 	if EnterBox.text != "":
 		GlobalData.send_chat_message(EnterBox.text)
 		EnterBox.text = ""
+		
+func isInRocket() -> bool:
+	return get_node("Rocket") != null
+func _rocket_Engine() -> StaticBody3D:
+	return get_node("Rocket").get_node("Engine")
 
 func _ready() -> void:
 	camera1 = $firstperson
 	camera2 = $raycamera/thirdperson
 
 func _physics_process(delta: float) -> void:
-
+	if isInRocket():
+		_rocket_Engine().get_node("Fire").emitting = false
 	if isFirst:
 		camera1.make_current()
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -39,6 +46,8 @@ func _physics_process(delta: float) -> void:
 		var input_dir: Vector3 = Vector3.ZERO
 		if Input.is_action_pressed("throttle"):
 			input_dir -= transform.basis.z
+			if isInRocket():
+				_rocket_Engine().get_node("Fire").emitting = true
 		var yaw_input: float = 0.0
 		var pitch_input: float = 0.0
 		var qe_input: float = 0.0
@@ -96,3 +105,9 @@ func _physics_process(delta: float) -> void:
 			Marker.visible = true
 			var screen_pos: Vector2 = camera.unproject_position(object.global_transform.origin)
 			Marker.position = screen_pos
+			
+		if Input.is_action_just_pressed("menu2"):
+			var json: String = await PopupService.prompt_input("", "Enter rocket JSON")
+			RocketStats = RocketService.build_rocket(json, self)
+			SPEED = RocketStats["thrust"]
+			print(RocketStats)

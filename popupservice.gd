@@ -3,7 +3,7 @@ extends Node
 var Player: CharacterBody3D
 var UI: Control
 var diag: AcceptDialog
-var LE: LineEdit
+var LE: CodeEdit
 var IsPopup: bool = false
 
 var _lastInput: String = ""
@@ -40,7 +40,7 @@ func prompt_input(title: String, body: String, default_text: String = "") -> Str
 	L.text = body
 	diag.add_child(L)
 	
-	LE = LineEdit.new()
+	LE = CodeEdit.new()
 	diag.add_child(LE)
 	
 	while _lastInput == "":

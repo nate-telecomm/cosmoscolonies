@@ -333,7 +333,6 @@ shadow_normal_bias = 10.0
 shadow_transmittance_bias = 5.475
 shadow_opacity = 0.0
 shadow_blur = 6.188
-distance_fade_enabled = true
 distance_fade_begin = 30.0
 distance_fade_shadow = 3000000.0
 distance_fade_length = 2000000.0
@@ -373,7 +372,7 @@ process_material = SubResource("ParticleProcessMaterial_q3pfq")
 draw_pass_1 = SubResource("BoxMesh_pjw6n")
 
 [node name="Maybe" type="StaticBody3D" parent="." groups=["celestialbodies"]]
-transform = Transform3D(20929.043, 252405.17, 431107.44, -104291.83, 424185.63, -243289.5, -488554.16, -79738.32, 70403.19, -616997, -14281.8, 596228)
+transform = Transform3D(20929.043, 252405.17, 431107.44, -104291.83, 424185.63, -243289.5, -488554.16, -79738.32, 70403.19, -616997, -14281.8, 1075892)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Maybe"]
 shape = SubResource("SphereShape3D_n82qi")
@@ -395,7 +394,7 @@ direction = Vector3(0, 0, 0)
 gravity = Vector3(0, 0, 0)
 
 [node name="Umo" type="StaticBody3D" parent="." groups=["celestialbodies"]]
-transform = Transform3D(100000, 0, 0, 0, 100000, 0, 0, 0, 100000, -101166, 746950, -528587)
+transform = Transform3D(100000, 0, 0, 0, 100000, 0, 0, 0, 100000, -101166, 2997374, -528587)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Umo"]
 shape = SubResource("SphereShape3D_mrtj2")
@@ -411,12 +410,13 @@ script = ExtResource("7_f7adk")
 shape = SubResource("SphereShape3D_8ggpk")
 
 [node name="James" type="StaticBody3D" parent="." groups=["celestialbodies"]]
-transform = Transform3D(400002, 0, 0, 0, 400002, 0, 0, 0, 400002, 638124, 0, -1354580)
+transform = Transform3D(400002, 0, 0, 0, 400002, 0, 0, 0, 400002, 2440559.3, 0, -2224067.7)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="James"]
 shape = SubResource("SphereShape3D_a8vxh")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="James/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.507469e-05, 5.315525e-05, 3.7670135e-05)
 mesh = SubResource("SphereMesh_vjtou")
 
 [node name="CPUParticles3D" type="CPUParticles3D" parent="James"]
