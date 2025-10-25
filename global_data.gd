@@ -85,7 +85,7 @@ func get_character_speed(object: CharacterBody3D) -> float:
 		return 0
 	return object.velocity.length()
 
-@export var websocket_url = "ws://home.ununhexium.net:53920/game"
+@export var websocket_url = "ws://127.0.0.1:53920/game"
 @export var other_player_scene: PackedScene = load("res://assets/scenes/player.tscn")
 var socket = WebSocketPeer.new()
 const sep = "$%^%^%^&*((&W^))"
