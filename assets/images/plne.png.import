@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cp6w2aduq5wf1"
 path.s3tc="res://.godot/imported/plne.png-8714203cdb86b8372e99960e45581af1.s3tc.ctex"
+path.etc2="res://.godot/imported/plne.png-8714203cdb86b8372e99960e45581af1.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/images/plne.png"
-dest_files=["res://.godot/imported/plne.png-8714203cdb86b8372e99960e45581af1.s3tc.ctex"]
+dest_files=["res://.godot/imported/plne.png-8714203cdb86b8372e99960e45581af1.s3tc.ctex", "res://.godot/imported/plne.png-8714203cdb86b8372e99960e45581af1.etc2.ctex"]
 
 [params]
 
