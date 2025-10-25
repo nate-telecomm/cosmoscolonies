@@ -12,10 +12,10 @@ config_version=5
 
 config/name="CosmosColonies"
 run/main_scene="res://login.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 boot_splash/bg_color=Color(1, 1, 1, 1)
-boot_splash/image="res://assets/images/cgebanner.png"
 boot_splash/fullsize=false
+boot_splash/image="res://assets/images/cgebanner.png"
 config/icon="res://assets/images/logo.png"
 
 [autoload]
