@@ -35,7 +35,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(300, 160)
+custom_minimum_size = Vector2(350, 175)
 layout_mode = 2
 size_flags_horizontal = 0
 
@@ -55,6 +55,9 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "hello world"
 editable = false
+selecting_enabled = false
+scroll_smooth = true
+scroll_fit_content_width = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
