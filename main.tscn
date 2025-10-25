@@ -1,11 +1,11 @@
 [gd_scene load_steps=57 format=3 uid="uid://dlf5pxog21wtm"]
 
-[ext_resource type="Script" path="res://server_int.gd" id="1_kvpof"]
-[ext_resource type="Script" path="res://player-movement.gd" id="2_c1rg8"]
+[ext_resource type="Script" uid="uid://cnh78i8vay3mg" path="res://server_int.gd" id="1_kvpof"]
+[ext_resource type="Script" uid="uid://dxql26pflbtdh" path="res://player-movement.gd" id="2_c1rg8"]
 [ext_resource type="Environment" uid="uid://b5s3rlcomeeng" path="res://env.tres" id="2_oxsde"]
-[ext_resource type="Script" path="res://raycamera.gd" id="4_8hk4w"]
+[ext_resource type="Script" uid="uid://3rc31hky466f" path="res://raycamera.gd" id="4_8hk4w"]
 [ext_resource type="Material" uid="uid://ly63p2okmgjs" path="res://assets/materials/metal.tres" id="4_815e3"]
-[ext_resource type="Script" path="res://atmosphere.gd" id="7_f7adk"]
+[ext_resource type="Script" uid="uid://6rq2bmqalfh3" path="res://atmosphere.gd" id="7_f7adk"]
 [ext_resource type="Texture2D" uid="uid://bkmdtlcl1lahk" path="res://assets/images/crosshair.png" id="7_or7bv"]
 [ext_resource type="PackedScene" uid="uid://bjvgeuu0gku40" path="res://ui.tscn" id="7_pvk77"]
 [ext_resource type="AudioStream" uid="uid://58h3h0olprls" path="res://assets/audio/sound2.ogg" id="8_bcgsy"]
@@ -69,6 +69,7 @@ emission_ring_axis = Vector3(0, 0, 0)
 emission_ring_height = 0.0
 emission_ring_radius = 3.0
 emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
 orbit_velocity_min = 9.49949e-08
 orbit_velocity_max = 9.49949e-08
 radial_velocity_min = -2.23517e-05
@@ -94,8 +95,8 @@ colors = PackedColorArray(0.504143, 0.00041508, 0.564966, 1, 0.404041, 0.491357,
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_8pd5s"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hqnva"]
-color_ramp = SubResource("Gradient_820o2")
 noise = SubResource("FastNoiseLite_8pd5s")
+color_ramp = SubResource("Gradient_820o2")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_coy0s"]
 cull_mode = 2
@@ -133,8 +134,8 @@ noise_type = 4
 frequency = 0.0891
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6ht7e"]
-color_ramp = SubResource("Gradient_psxee")
 noise = SubResource("FastNoiseLite_e28d7")
+color_ramp = SubResource("Gradient_psxee")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0kjac"]
 albedo_texture = SubResource("NoiseTexture2D_6ht7e")
@@ -152,8 +153,8 @@ colors = PackedColorArray(6.31716e-07, 0.31663, 2.40654e-07, 1, 3.03224e-06, 0.7
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_dypip"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wqmg4"]
-color_ramp = SubResource("Gradient_fpw0g")
 noise = SubResource("FastNoiseLite_dypip")
+color_ramp = SubResource("Gradient_fpw0g")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gg4d4"]
 albedo_texture = SubResource("NoiseTexture2D_wqmg4")
@@ -218,14 +219,14 @@ mesh = SubResource("BoxMesh_xkks0")
 
 [node name="firstperson" type="Camera3D" parent="Player"]
 fov = 70.0
-far = 1.04857e+06
+far = 1048570.0
 
 [node name="raycamera" type="SpringArm3D" parent="Player"]
 spring_length = 3.0
 script = ExtResource("4_8hk4w")
 
 [node name="thirdperson" type="Camera3D" parent="Player/raycamera"]
-far = 1.04857e+06
+far = 1048570.0
 
 [node name="ui" parent="Player" instance=ExtResource("7_pvk77")]
 
@@ -262,8 +263,8 @@ shadow_opacity = 0.0
 shadow_blur = 6.188
 distance_fade_enabled = true
 distance_fade_begin = 30.0
-distance_fade_shadow = 3e+06
-distance_fade_length = 2e+06
+distance_fade_shadow = 3000000.0
+distance_fade_length = 2000000.0
 omni_range = 9.22337e+18
 omni_attenuation = -0.152
 omni_shadow_mode = 0
@@ -300,7 +301,7 @@ process_material = SubResource("ParticleProcessMaterial_q3pfq")
 draw_pass_1 = SubResource("BoxMesh_pjw6n")
 
 [node name="Maybe" type="StaticBody3D" parent="." groups=["celestialbodies"]]
-transform = Transform3D(20929.1, 252406, 431108, -104292, 424187, -243290, -488555, -79738.7, 70403.5, -616997, -14281.8, 596228)
+transform = Transform3D(20929.043, 252405.17, 431107.44, -104291.83, 424185.63, -243289.5, -488554.16, -79738.32, 70403.19, -616997, -14281.8, 596228)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Maybe"]
 shape = SubResource("SphereShape3D_n82qi")
@@ -317,6 +318,7 @@ emission_ring_axis = Vector3(0, 1, 0)
 emission_ring_height = 0.0
 emission_ring_radius = 0.2
 emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
 direction = Vector3(0, 0, 0)
 gravity = Vector3(0, 0, 0)
 
@@ -337,7 +339,7 @@ script = ExtResource("7_f7adk")
 shape = SubResource("SphereShape3D_8ggpk")
 
 [node name="James" type="StaticBody3D" parent="." groups=["celestialbodies"]]
-transform = Transform3D(400002, 0, 0, 0, 400002, 0, 0, 0, 400002, 638124, 0, -1.35458e+06)
+transform = Transform3D(400002, 0, 0, 0, 400002, 0, 0, 0, 400002, 638124, 0, -1354580)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="James"]
 shape = SubResource("SphereShape3D_a8vxh")
@@ -375,6 +377,7 @@ emission_ring_axis = Vector3(0, 0, 0)
 emission_ring_height = 0.0
 emission_ring_radius = 1.0
 emission_ring_inner_radius = 0.0
+emission_ring_cone_angle = 90.0
 direction = Vector3(0, 0, 0)
 spread = 0.0
 gravity = Vector3(0, 0, 0)

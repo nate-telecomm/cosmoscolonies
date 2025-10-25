@@ -1,6 +1,6 @@
 extends Control
 
-@export var websocket_url = "ws://127.0.0.1:53920/game"
+@export var websocket_url = "ws://home.ununhexium.net:53920/game"
 @onready var user = $VBoxContainer/HBoxContainer/username
 @onready var passw = $VBoxContainer/HBoxContainer/password
 @onready var login = $VBoxContainer/Button
