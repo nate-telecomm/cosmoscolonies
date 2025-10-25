@@ -31,6 +31,12 @@ func _physics_process(delta: float) -> void:
 			input_dir -= transform.basis.z
 		var yaw_input: float = 0.0
 		var pitch_input: float = 0.0
+		var qe_input: float = 0.0
+
+		if Input.is_action_pressed("q"):
+			qe_input += 1.0
+		if Input.is_action_pressed("e"):
+			qe_input -= 1.0
 		if Input.is_action_pressed("left"):
 			yaw_input += 1.0
 		if Input.is_action_pressed("right"):
@@ -43,6 +49,8 @@ func _physics_process(delta: float) -> void:
 			transform.basis = transform.basis.rotated(transform.basis.x, pitch_input * ROT_SPEED * delta)
 		if yaw_input != 0.0:
 			transform.basis = transform.basis.rotated(transform.basis.y, yaw_input * ROT_SPEED * delta)
+		if qe_input != 0.0:
+			transform.basis = transform.basis.rotated(transform.basis.z, qe_input * ROT_SPEED * delta)
 
 		var desired_velocity = Vector3.ZERO
 		if input_dir.length_squared() > 0.0001:
