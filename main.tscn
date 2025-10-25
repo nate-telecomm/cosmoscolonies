@@ -186,6 +186,7 @@ mesh = SubResource("BoxMesh_xkks0")
 
 [node name="firstperson" type="Camera3D" parent="Player"]
 fov = 70.0
+near = 10.0
 far = 1048570.0
 
 [node name="raycamera" type="SpringArm3D" parent="Player"]
@@ -193,7 +194,8 @@ spring_length = 3.0
 script = ExtResource("4_8hk4w")
 
 [node name="thirdperson" type="Camera3D" parent="Player/raycamera"]
-far = 1048570.0
+near = 10.0
+far = 10000000.0
 
 [node name="ui" parent="Player" instance=ExtResource("7_pvk77")]
 

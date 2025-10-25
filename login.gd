@@ -1,11 +1,12 @@
-extends Node2D
+extends Control
 
 @export var websocket_url = "ws://home.ununhexium.net:53920/game"
-@onready var user = $username
-@onready var passw = $password
-@onready var login = $Button
-@onready var status = $status
+@onready var user = $VBoxContainer/HBoxContainer/username
+@onready var passw = $VBoxContainer/HBoxContainer/password
+@onready var login = $VBoxContainer/Button
+@onready var status = $VBoxContainer/status
 @onready var music = $AudioStreamPlayer
+
 var socket = WebSocketPeer.new()
 const sep = "$%^%^%^&*((&W^))"
 
@@ -25,7 +26,7 @@ func _on_button_button_down() -> void:
 	connected = true
 	status.text = "Connecting..."
 
-func _process(delta):
+func _process(_delta):
 	if connected:
 		socket.poll()
 		var state = socket.get_ready_state()

@@ -15,7 +15,6 @@ func _on_body_entered(body: Node3D) -> void:
 	_is_transitioning = true
 	call_deferred("_change_scene", body)
 
-
 func _change_scene(player: CharacterBody3D) -> void:
 	var tree: SceneTree = get_tree()
 	var old_scene: Node = tree.current_scene
