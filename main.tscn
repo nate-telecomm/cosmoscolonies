@@ -186,8 +186,8 @@ mesh = SubResource("BoxMesh_xkks0")
 
 [node name="firstperson" type="Camera3D" parent="Player"]
 fov = 70.0
-near = 10.0
-far = 1048570.0
+near = 1.0
+far = 2000000.0
 
 [node name="raycamera" type="SpringArm3D" parent="Player"]
 spring_length = 3.0
