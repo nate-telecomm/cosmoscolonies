@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b8hqsit5c8g30"]
 
-[ext_resource type="Script" uid="uid://vov4a2n08bdj" path="res://login.gd" id="1_cwqf4"]
-[ext_resource type="Shader" uid="uid://bs3vufvml141m" path="res://checker.gdshader" id="1_py1d6"]
+[ext_resource type="Script" path="res://login.gd" id="1_cwqf4"]
+[ext_resource type="Shader" path="res://checker.gdshader" id="1_py1d6"]
 [ext_resource type="AudioStream" uid="uid://bcirgj7paxws8" path="res://assets/audio/that-one-russian-murder-drones-song.ogg" id="3_88s16"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iiq76"]
@@ -50,8 +50,6 @@ layout_mode = 2
 size_flags_vertical = 3
 fit_content = true
 autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 400)

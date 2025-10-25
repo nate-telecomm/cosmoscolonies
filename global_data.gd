@@ -3,6 +3,21 @@ extends Node3D
 var username: String
 var password: String
 var maindelta: float
+var chat_messages: Array = []
+
+func array_to_string(arr: Array) -> String:
+	var result_string = ""
+	for element in arr:
+		result_string += str(element)
+	return result_string
+
+func send_chat_message(text: String) -> void:
+	if authenticated:
+		socket.send_text("scm " + text)
+		
+func request_chat_messages() -> void:
+	if authenticated:
+		socket.send_text("gcm")
 
 func get_nearest(group_name: String, max_distance: float, player: CharacterBody3D) -> Node3D:
 	var nodes = get_tree().get_nodes_in_group(group_name)
@@ -89,6 +104,7 @@ func init_connect() -> void:
 	connected = true
 
 func _process(delta):
+	await get_tree().create_timer(1)
 	maindelta = delta
 	if connected:
 		var player = get_tree().current_scene.get_node_or_null("Player")
@@ -100,27 +116,26 @@ func _process(delta):
 				socket.send_text("login")
 				waiting_for_credentials = true
 			
+			request_chat_messages()
 			while socket.get_available_packet_count() > 0:
 				var packet = socket.get_packet().get_string_from_utf8()
-				
+
 				if packet == "y" and waiting_for_credentials:
 					socket.send_text(GlobalData.username + sep + GlobalData.password)
-				
 				elif packet == "!y":
 					authenticated = true
-				
 				elif packet == "!n":
 					socket.close()
 					connected = false
 					waiting_for_credentials = false
-
 				elif packet.begins_with("{"):
 					var json = JSON.new()
-					var error = json.parse(packet)
-					if error == OK:
+					if json.parse(packet) == OK:
 						var data = json.data
 						if data.has("pos"):
 							update_other_players(data["pos"])
+						elif data.has("chat"):
+							update_chat(data["chat"])
 
 			if authenticated:
 				if player:
@@ -134,13 +149,15 @@ func _process(delta):
 						str(player.rotation.z) + " " +
 						get_tree().current_scene.name)
 					socket.send_text("gpl")
-		
+					
 		elif state == WebSocketPeer.STATE_CLOSED:
 			connected = false
+			
+func update_chat(chat_data: Array) -> void:
+	chat_messages = chat_data
 
 func update_other_players(players_data):
 	var current_planet = get_tree().current_scene.name
-	print(current_planet)
 	var current_players = {}
 	var planets = {}
 	
@@ -212,6 +229,8 @@ func PlayLocalSFX(option: String) -> void:
 			stream = load("res://assets/audio/sound1.ogg")
 		"sound2":
 			stream = load("res://assets/audio/sound2.ogg")
+		"sound3":
+			stream = load("res://assets/audio/sound3.ogg")
 	sfx.stream = stream
 	print(stream)
 	sfx.play()

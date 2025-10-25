@@ -10,12 +10,29 @@ var camera2: Camera3D
 var object: Node3D
 @export var isFirst: bool
 @export var gravity_strength: float = 8
+var MessageBox: TextEdit
+var EnterBox: LineEdit
+var SendButton: Button
+
+func _text_submitted():
+	if EnterBox.text != "":
+		GlobalData.send_chat_message(EnterBox.text)
+		EnterBox.text = ""
 
 func _ready() -> void:
 	camera1 = $firstperson
 	camera2 = $raycamera/thirdperson
+	MessageBox = $chat/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/Messages
+	EnterBox = $chat/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Messager
+	SendButton = $chat/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/PlayerName
+	SendButton.pressed.connect(_text_submitted)
 
 func _physics_process(delta: float) -> void:
+	var finished: String
+	for chat in GlobalData.chat_messages:
+		finished += "[%s]: %s" % [chat["user"], chat["msg"]] + "\n"
+		
+	MessageBox.text = finished
 	if isFirst:
 		camera1.make_current()
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
