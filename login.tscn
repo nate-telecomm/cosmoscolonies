@@ -52,6 +52,11 @@ size_flags_vertical = 3
 fit_content = true
 autowrap_mode = 0
 
+[node name="address" type="LineEdit" parent="VBoxContainer"]
+layout_mode = 2
+placeholder_text = "server address"
+alignment = 1
+
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
@@ -76,4 +81,5 @@ autoplay = true
 expand = true
 
 [connection signal="button_down" from="VBoxContainer/Button" to="." method="_on_button_button_down"]
+[connection signal="text_changed" from="VBoxContainer/address" to="." method="_on_address_text_changed"]
 [connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]

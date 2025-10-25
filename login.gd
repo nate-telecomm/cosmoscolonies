@@ -6,6 +6,8 @@ extends Control
 @onready var login = $VBoxContainer/Button
 @onready var status = $VBoxContainer/status
 @onready var music = $AudioStreamPlayer
+@onready var address: LineEdit = $VBoxContainer/address
+
 var video: VideoStreamPlayer
 
 var socket = WebSocketPeer.new()
@@ -19,7 +21,13 @@ var connected = false
 var authenticated = false
 var waiting_for_credentials = false
 
+func _on_address_text_changed(new_text: String) -> void:
+	websocket_url = new_text
+	GlobalData.change_websocket_address(new_text)
+
 func _on_button_button_down() -> void:
+	websocket_url = address.text
+	GlobalData.change_websocket_address(address.text)
 	var err = socket.connect_to_url(websocket_url)
 	if err != OK:
 		status.text = "Unable to connect\n" + str(err)
