@@ -29,7 +29,6 @@ func _rocket_Engine() -> StaticBody3D:
 func _ready() -> void:
 	camera1 = $firstperson
 	camera2 = $raycamera/thirdperson
-	add_to_group("marker_target")
 
 func _physics_process(delta: float) -> void:
 	if isInRocket() and _rocket_Engine() != null:
@@ -79,7 +78,7 @@ func _physics_process(delta: float) -> void:
 		if input_dir.length_squared() > 0.0001:
 			desired_velocity = input_dir.normalized() * SPEED
 			velocity = velocity.move_toward(desired_velocity, ACCEL * delta)
-			
+
 		if get_tree().current_scene.name != "Space":
 			velocity.y -= gravity_strength * delta
 		else:
@@ -89,7 +88,7 @@ func _physics_process(delta: float) -> void:
 
 		if Input.is_action_just_pressed("camera"):
 			isFirst = !isFirst
-		
+
 		if Input.is_action_just_pressed("menu"):
 			var obj: String = await PopupService.prompt_input("", "Enter object")
 			if obj != "%%NULL%%":
@@ -101,7 +100,7 @@ func _physics_process(delta: float) -> void:
 					object = get_tree().current_scene.get_node(obj)
 			else:
 				object = null
-		
+
 		var camera := get_viewport().get_camera_3d()
 		if object == null or camera.is_position_behind(object.global_transform.origin):
 			Marker.visible = false
@@ -109,7 +108,7 @@ func _physics_process(delta: float) -> void:
 			Marker.visible = true
 			var screen_pos: Vector2 = camera.unproject_position(object.global_transform.origin)
 			Marker.position = screen_pos
-		
+
 		if Input.is_action_just_pressed("menu2"):
 			var json: String = await PopupService.prompt_input("", "Enter rocket JSON")
 			if json != "%%NULL%%":

@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctt5kg8f780ef"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4td12"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.38039216, 0, 1)
+
+[node name="mislHUDMarker" type="Panel"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_4td12")

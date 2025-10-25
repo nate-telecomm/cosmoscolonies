@@ -8,7 +8,7 @@ var last_message_count := 0
 
 func _ready() -> void:
 	chat_player_name.text = GlobalData.username
-	chat_messages.editable = false  # Prevent user editing
+	chat_messages.editable = false
 
 func _on_messager_text_submitted(new_text: String) -> void:
 	GlobalData.send_chat_message(new_text)
