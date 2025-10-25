@@ -157,12 +157,13 @@ func update_chat(chat_data: Array) -> void:
 	chat_messages = chat_data
 
 func update_other_players(players_data):
+	var now = Time.get_unix_time_from_system()
 	var current_planet = get_tree().current_scene.name
 	var current_players = {}
 	var planets = {}
 	
 	for player_info in players_data:
-		var username = player_info["username"]
+		var username = str(player_info.get("username", "unknown"))
 		
 		if player_info["x"] == null:
 			player_info["x"] = 0
@@ -178,13 +179,15 @@ func update_other_players(players_data):
 			player_info["zr"] = 0
 		if player_info["planet"] == null:
 			player_info["planet"] = "Space"
-		var x: float = float(player_info["x"])
-		var y: float = float(player_info["y"])
-		var z: float = float(player_info["z"])
-		var xr: float = float(player_info["xr"])
-		var yr: float = float(player_info["yr"])
-		var zr: float = float(player_info["zr"])
-		var planet: String = player_info["planet"]
+		
+		var x = float(player_info.get("x", 0))
+		var y = float(player_info.get("y", 0))
+		var z = float(player_info.get("z", 0))
+		var xr = float(player_info.get("xr", 0))
+		var yr = float(player_info.get("yr", 0))
+		var zr = float(player_info.get("zr", 0))
+		var planet = str(player_info.get("planet", "Space"))
+		
 		var pos = Vector3(x, y, z)
 		var rot = Vector3(xr, yr, zr)
 		current_players[username] = true
@@ -195,28 +198,30 @@ func update_other_players(players_data):
 			var player_node = other_player_scene.instantiate()
 			player_node.name = username
 			root.add_child(player_node)
-			other_players[username] = player_node
+			other_players[username] = {"node": player_node, "last_seen": now}
 
 			if player_node.has_node("Label3D"):
 				player_node.get_node("Label3D").text = username
 				
 		if other_players.has(username):
-			var player_node = other_players[username]
-			var lerp_speed: float = 8.0
-			player_node.position.y = pos.y
-			player_node.position = pos
-			player_node.rotation.x = rot.x
-			player_node.rotation.y = rot.y
-			player_node.rotation.z = rot.z
-
-	for username in other_players.keys():
-		if not current_players.has(username):
-			other_players[username].queue_free()
+			other_players[username]["last_seen"] = now
+			var player_node = other_players[username]["node"]
+			
+			player_node.global_transform.origin = pos
+			player_node.rotation = rot
+			
+	var keys = other_players.keys()
+	for username in keys:
+		var last = other_players[username]["last_seen"]
+		var node_ref = other_players[username]["node"]
+		
+		if now - last > 1.8:
+			node_ref.queue_free()
 			other_players.erase(username)
 			planets.erase(username)
 		else:
-			if planets[username] != current_planet:
-				other_players[username].queue_free()
+			if planets.has(username) and planets[username] != current_planet:
+				node_ref.queue_free()
 				other_players.erase(username)
 				planets.erase(username)
 
