@@ -14,6 +14,18 @@ func get_part_height(part: Node3D) -> float:
 						return shape.radius * 2
 	return 5
 	
+func _disable_part_collisions(node: Node) -> void:
+	for child in node.get_children():
+		if child is StaticBody3D:
+			child.collision_layer = 0
+			child.collision_mask = 0
+			for sub in child.get_children():
+				if sub is CollisionShape3D:
+					sub.disabled = true
+		elif child is CollisionShape3D:
+			child.disabled = true
+		else:
+			_disable_part_collisions(child)
 
 func build_rocket(json_string: String, parent_body: CharacterBody3D) -> Dictionary:
 	var blueprint = JSON.parse_string(json_string)
@@ -24,6 +36,7 @@ func build_rocket(json_string: String, parent_body: CharacterBody3D) -> Dictiona
 	var rocket = Node3D.new()
 	rocket.name = "Rocket"
 	parent_body.add_child(rocket)
+	rocket.rotation_degrees.x = -90
 	
 	var total_stats = {
 		"fuel_capacity": 0,
@@ -43,10 +56,11 @@ func build_rocket(json_string: String, parent_body: CharacterBody3D) -> Dictiona
 		var part_scene = load(part_path)
 		var part_instance = part_scene.instantiate()
 		rocket.add_child(part_instance)
+		_disable_part_collisions(part_instance)
 
-		var height = get_part_height(part_instance)
+		#var height = get_part_height(part_instance)
 		part_instance.position = current_offset
-		current_offset.y -= height 
+		current_offset.y -= 5
 		
 		var stats_path = "res://assets/data/parts/%s.json" % rname
 		if ResourceLoader.exists(stats_path):

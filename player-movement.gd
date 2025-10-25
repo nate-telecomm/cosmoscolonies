@@ -14,6 +14,7 @@ var MessageBox: TextEdit
 var EnterBox: LineEdit
 var SendButton: RichTextLabel
 var RocketStats: Dictionary
+@export var RemainingFuel: float = 0.0
 
 func _text_submitted():
 	if EnterBox.text != "":
@@ -30,7 +31,7 @@ func _ready() -> void:
 	camera2 = $raycamera/thirdperson
 
 func _physics_process(delta: float) -> void:
-	if isInRocket():
+	if isInRocket() and _rocket_Engine() != null:
 		_rocket_Engine().get_node("Fire").emitting = false
 	if isFirst:
 		camera1.make_current()
@@ -45,9 +46,11 @@ func _physics_process(delta: float) -> void:
 			camera1.fov = 70
 		var input_dir: Vector3 = Vector3.ZERO
 		if Input.is_action_pressed("throttle"):
-			input_dir -= transform.basis.z
-			if isInRocket():
-				_rocket_Engine().get_node("Fire").emitting = true
+			if RemainingFuel > 0.0:
+				input_dir -= transform.basis.z
+				if isInRocket() and _rocket_Engine() != null:
+					_rocket_Engine().get_node("Fire").emitting = true
+				RemainingFuel -= SPEED/10000
 		var yaw_input: float = 0.0
 		var pitch_input: float = 0.0
 		var qe_input: float = 0.0
@@ -110,4 +113,5 @@ func _physics_process(delta: float) -> void:
 			var json: String = await PopupService.prompt_input("", "Enter rocket JSON")
 			RocketStats = RocketService.build_rocket(json, self)
 			SPEED = RocketStats["thrust"]
-			print(RocketStats)
+			RemainingFuel = RocketStats["fuel_capacity"]
+			print(SPEED)

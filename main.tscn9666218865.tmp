@@ -237,6 +237,9 @@ environment = ExtResource("2_oxsde")
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -196183, -1201.41, 96784.2)
 script = ExtResource("2_c1rg8")
+isFirst = null
+gravity_strength = null
+RemainingFuel = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("BoxShape3D_437nr")

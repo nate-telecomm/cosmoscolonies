@@ -1,5 +1,5 @@
 {
   "type": "engine",
   "mass": 200,
-  "thrust": 100
+  "thrust": 1000
 }

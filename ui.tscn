@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjvgeuu0gku40"]
+[gd_scene load_steps=6 format=3 uid="uid://bjvgeuu0gku40"]
 
-[ext_resource type="Script" uid="uid://d0mgtjjne25o5" path="res://fps.gd" id="1_vh0dw"]
-[ext_resource type="Script" uid="uid://cd3uyxof6r75r" path="res://speedcounter.gd" id="2_dqkp5"]
+[ext_resource type="Script" uid="uid://d0mgtjjne25o5" path="res://ui/fps.gd" id="1_vh0dw"]
+[ext_resource type="Script" uid="uid://cd3uyxof6r75r" path="res://ui/speedcounter.gd" id="2_dqkp5"]
 [ext_resource type="Theme" uid="uid://cxx6qmqkaupx" path="res://assets/maintheme.tres" id="2_rskbk"]
-[ext_resource type="Script" uid="uid://dhgf4uqwhs7o7" path="res://nearest_grav.gd" id="3_3p2fe"]
+[ext_resource type="Script" uid="uid://dhgf4uqwhs7o7" path="res://ui/nearest_grav.gd" id="3_3p2fe"]
+[ext_resource type="Script" uid="uid://bn172c7dxlnm2" path="res://ui/fuel.gd" id="5_ibotj"]
 
 [node name="ui" type="Control"]
 layout_mode = 3
@@ -36,3 +37,13 @@ offset_bottom = 118.0
 theme = ExtResource("2_rskbk")
 text = "NEAREST"
 script = ExtResource("3_3p2fe")
+
+[node name="fuel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_top = 119.0
+offset_right = 152.0
+offset_bottom = 159.0
+theme = ExtResource("2_rskbk")
+text = "FUEL
+"
+script = ExtResource("5_ibotj")
