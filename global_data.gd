@@ -104,7 +104,7 @@ func init_connect() -> void:
 	connected = true
 
 func _process(delta):
-	await get_tree().create_timer(1)
+	await get_tree().create_timer(1).timeout
 	maindelta = delta
 	if connected:
 		var player = get_tree().current_scene.get_node_or_null("Player")
