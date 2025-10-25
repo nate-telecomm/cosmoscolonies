@@ -112,7 +112,7 @@ func _physics_process(delta: float) -> void:
 		
 		if Input.is_action_just_pressed("menu2"):
 			var json: String = await PopupService.prompt_input("", "Enter rocket JSON")
-			RocketStats = RocketService.build_rocket(json, self)
-			SPEED = RocketStats["thrust"]
-			RemainingFuel = RocketStats["fuel_capacity"]
-			print(SPEED)
+			if json != "%%NULL%%":
+				RocketStats = RocketService.build_rocket(json, self)
+				SPEED = RocketStats["thrust"]
+				RemainingFuel = RocketStats["fuel_capacity"]

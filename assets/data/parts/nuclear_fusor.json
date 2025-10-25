@@ -1,5 +1,6 @@
 {
   "type": "fuel_tank",
   "mass": 3000,
-  "fuel_capacity": 900
+  "fuel_capacity": 900,
+  "desc": "Slightly more safe and efficient than it's fusor"
 }

@@ -21,11 +21,8 @@ var connected = false
 var authenticated = false
 var waiting_for_credentials = false
 
-func _on_address_text_changed(new_text: String) -> void:
-	websocket_url = new_text
-	GlobalData.change_websocket_address(new_text)
-
 func _on_button_button_down() -> void:
+	websocket_url = "ws://" + address.text + ":53920/game"
 	var err = socket.connect_to_url(websocket_url)
 	if err != OK:
 		status.text = "Unable to connect\n" + str(err)
