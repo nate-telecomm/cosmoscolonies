@@ -17,3 +17,4 @@ func _process(_delta: float) -> void:
 	for chat in GlobalData.chat_messages:
 		finished += "[%s]: %s" % [chat["user"], chat["msg"]] + "\n"
 	chat_messages.text = finished
+	await get_tree().create_timer(5).timeout
