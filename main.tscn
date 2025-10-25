@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cigaeu1ed7nga" path="res://chat/chat.tscn" id="8_dg77c"]
 [ext_resource type="Texture2D" uid="uid://cp6w2aduq5wf1" path="res://assets/images/plne.png" id="9_bknev"]
 [ext_resource type="Material" uid="uid://b27g25vf5s3yf" path="res://assets/materials/plasma.tres" id="11_1hv5g"]
+[ext_resource type="Material" uid="uid://d3tgfng0d5sy3" path="res://assets/materials/hot.tres" id="11_w48qg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_437nr"]
 
@@ -56,18 +57,8 @@ size = Vector3(0.2, 0.2, 0.4)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_k31gl"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mgw2f"]
-metallic = 1.0
-metallic_specular = 0.0
-roughness = 0.0
-emission_enabled = true
-emission = Color(0.670661, 0.0826807, 9.62615e-08, 1)
-emission_energy_multiplier = 30000.0
-billboard_keep_scale = true
-grow_amount = 16.0
-
 [sub_resource type="SphereMesh" id="SphereMesh_r1k35"]
-material = SubResource("StandardMaterial3D_mgw2f")
+material = ExtResource("11_w48qg")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_lg2s1"]
 

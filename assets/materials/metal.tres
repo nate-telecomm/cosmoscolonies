@@ -4,7 +4,7 @@
 metallic = 1.0
 metallic_specular = 1.0
 roughness = 0.22
-normal_scale = -0.04
+normal_scale = 16.0
 rim_tint = 1.0
 clearcoat_roughness = 1.0
 anisotropy = 0.76

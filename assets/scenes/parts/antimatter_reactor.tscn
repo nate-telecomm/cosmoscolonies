@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://lwe4fxmyfpjm"]
+
+[ext_resource type="Material" uid="uid://ly63p2okmgjs" path="res://assets/materials/metal.tres" id="1_3mxvt"]
+[ext_resource type="Material" uid="uid://c3ludvxn5xv6t" path="res://assets/materials/antimatter.tres" id="2_sgo8y"]
+[ext_resource type="Material" uid="uid://boml0cvolr6gf" path="res://assets/materials/glass.tres" id="3_8f8dr"]
+[ext_resource type="Texture2D" uid="uid://lqbxhqko6rdk" path="res://assets/images/cge.png" id="4_tf2ei"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_g181l"]
+height = 5.0
+radius = 2.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_kkaim"]
+material = ExtResource("1_3mxvt")
+top_radius = 2.0
+bottom_radius = 2.0
+height = 0.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7jnnr"]
+material = ExtResource("3_8f8dr")
+top_radius = 2.0
+bottom_radius = 2.0
+height = 4.2
+
+[sub_resource type="SphereMesh" id="SphereMesh_qdk5f"]
+material = ExtResource("2_sgo8y")
+
+[sub_resource type="SphereMesh" id="SphereMesh_aao2t"]
+material = ExtResource("2_sgo8y")
+radius = 0.1
+height = 0.2
+
+[node name="Tank" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_g181l")
+
+[node name="bottom" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.550218, 0)
+mesh = SubResource("CylinderMesh_kkaim")
+
+[node name="top" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1500025, 0)
+mesh = SubResource("CylinderMesh_kkaim")
+skeleton = NodePath("../bottom")
+
+[node name="tube" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.20415205, 0)
+mesh = SubResource("CylinderMesh_7jnnr")
+
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(-9.245656e-09, 0.52204967, -1.8120481e-08, -0.21151595, -2.2819515e-08, 2.2648426e-15, 0, -4.563903e-08, -0.20727412, 1.9989334, 2.15767, 0.0057187974)
+texture_albedo = ExtResource("4_tf2ei")
+
+[node name="antimatter" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+mesh = SubResource("SphereMesh_qdk5f")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="antimatter"]
+amount = 4
+lifetime = 2.0
+lifetime_randomness = 0.14
+mesh = SubResource("SphereMesh_aao2t")
+direction = Vector3(0, 0, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.55
+initial_velocity_max = 0.6

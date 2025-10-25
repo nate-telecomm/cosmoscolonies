@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://dgwtkfo13e56x"]
+
+[ext_resource type="Material" uid="uid://ly63p2okmgjs" path="res://assets/materials/metal.tres" id="1_sqnqh"]
+[ext_resource type="Material" uid="uid://d3tgfng0d5sy3" path="res://assets/materials/hot.tres" id="2_e0e2h"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_b784n"]
+height = 5.0
+radius = 2.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7xi1y"]
+material = ExtResource("1_sqnqh")
+top_radius = 2.0
+bottom_radius = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_btclq"]
+albedo_color = Color(0.59836483, 0.3486869, 0.1693455, 1)
+metallic = 1.0
+roughness = 0.22
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_dvfn5"]
+material = SubResource("StandardMaterial3D_btclq")
+top_radius = 1.0
+bottom_radius = 2.0
+height = 3.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_c8opd"]
+material = ExtResource("2_e0e2h")
+radius = 0.825
+height = 1.685
+
+[node name="Engine" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_b784n")
+
+[node name="conn" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("CylinderMesh_7xi1y")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("CylinderMesh_dvfn5")
+
+[node name="Fire" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.7312205, 0)
+emitting = false
+amount = 30
+mesh = SubResource("SphereMesh_c8opd")
+direction = Vector3(0, -1, 0)
+spread = 11.75
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 23.4
+initial_velocity_max = 23.4

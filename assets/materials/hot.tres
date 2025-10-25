@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://d3tgfng0d5sy3"]
+
+[resource]
+metallic = 1.0
+metallic_specular = 0.0
+roughness = 0.0
+emission_enabled = true
+emission = Color(0.670661, 0.0826807, 9.62615e-08, 1)
+emission_energy_multiplier = 30000.0
+billboard_keep_scale = true
+grow_amount = 16.0

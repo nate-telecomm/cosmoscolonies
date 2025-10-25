@@ -1,0 +1,5 @@
+{
+  "type": "fuel_tank",
+  "mass": 150,
+  "fuel_capacity": 900
+}
