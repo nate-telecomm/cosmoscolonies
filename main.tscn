@@ -1,0 +1,328 @@
+[gd_scene load_steps=46 format=3 uid="uid://dlf5pxog21wtm"]
+
+[ext_resource type="Script" path="res://server_int.gd" id="1_kvpof"]
+[ext_resource type="Script" path="res://player-movement.gd" id="2_c1rg8"]
+[ext_resource type="Environment" uid="uid://b5s3rlcomeeng" path="res://env.tres" id="2_oxsde"]
+[ext_resource type="Script" path="res://raycamera.gd" id="4_8hk4w"]
+[ext_resource type="Material" uid="uid://ly63p2okmgjs" path="res://assets/materials/metal.tres" id="4_815e3"]
+[ext_resource type="Script" path="res://atmosphere.gd" id="7_f7adk"]
+[ext_resource type="PackedScene" uid="uid://bjvgeuu0gku40" path="res://ui.tscn" id="7_pvk77"]
+[ext_resource type="AudioStream" uid="uid://58h3h0olprls" path="res://assets/audio/sound2.ogg" id="8_bcgsy"]
+[ext_resource type="Texture2D" uid="uid://cp6w2aduq5wf1" path="res://assets/images/plne.png" id="9_bknev"]
+[ext_resource type="Material" uid="uid://b27g25vf5s3yf" path="res://assets/materials/plasma.tres" id="11_1hv5g"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_437nr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xkks0"]
+material = ExtResource("4_815e3")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_k31gl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mgw2f"]
+metallic = 1.0
+metallic_specular = 0.0
+roughness = 0.0
+emission_enabled = true
+emission = Color(0.670661, 0.0826807, 9.62615e-08, 1)
+emission_energy_multiplier = 30000.0
+billboard_keep_scale = true
+grow_amount = 16.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_r1k35"]
+material = SubResource("StandardMaterial3D_mgw2f")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lg2s1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rifn2"]
+albedo_color = Color(0, 0, 0, 1)
+metallic = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_s4yl1"]
+material = SubResource("StandardMaterial3D_rifn2")
+
+[sub_resource type="SphereMesh" id="SphereMesh_3tlnr"]
+material = ExtResource("11_1hv5g")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tjy5f"]
+emission_shape = 1
+emission_sphere_radius = 10.0
+orbit_velocity_min = 9.49949e-08
+orbit_velocity_max = 9.49949e-08
+linear_accel_min = -2.23517e-06
+linear_accel_max = -2.23517e-06
+turbulence_noise_strength = 0.5
+turbulence_noise_scale = 10.0
+collision_mode = 1
+collision_friction = 1.0
+collision_bounce = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_tioca"]
+material = ExtResource("11_1hv5g")
+radius = 100.0
+height = 200.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_q3pfq"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 0)
+emission_ring_height = 0.0
+emission_ring_radius = 3.0
+emission_ring_inner_radius = 0.0
+orbit_velocity_min = 9.49949e-08
+orbit_velocity_max = 9.49949e-08
+radial_velocity_min = -2.23517e-05
+radial_velocity_max = -2.23517e-05
+tangential_accel_min = -2.23517e-06
+tangential_accel_max = 1200.0
+attractor_interaction_enabled = false
+color = Color(0, 0, 0, 1)
+hue_variation_min = -2.23517e-08
+hue_variation_max = -2.23517e-08
+turbulence_noise_strength = 20.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_pjw6n"]
+lightmap_size_hint = Vector2i(5504, 15006)
+material = ExtResource("11_1hv5g")
+size = Vector3(10000, 10000, 100)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_n82qi"]
+
+[sub_resource type="Gradient" id="Gradient_820o2"]
+colors = PackedColorArray(0.504143, 0.00041508, 0.564966, 1, 0.404041, 0.491357, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8pd5s"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hqnva"]
+color_ramp = SubResource("Gradient_820o2")
+noise = SubResource("FastNoiseLite_8pd5s")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_coy0s"]
+cull_mode = 2
+albedo_texture = SubResource("NoiseTexture2D_hqnva")
+
+[sub_resource type="SphereMesh" id="SphereMesh_3gksc"]
+material = SubResource("StandardMaterial3D_coy0s")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mrrbt"]
+albedo_color = Color(0.0110527, 0.0377909, 0.0942072, 1)
+metallic_specular = 0.0
+roughness = 0.28
+rim_tint = 1.0
+anisotropy = 0.51
+ao_light_affect = 1.0
+subsurf_scatter_strength = 1.0
+backlight = Color(1, 1, 1, 1)
+refraction_scale = 1.0
+detail_blend_mode = 3
+uv1_triplanar_sharpness = 33.1285
+distance_fade_max_distance = 4096.0
+
+[sub_resource type="TorusMesh" id="TorusMesh_rvnmw"]
+material = SubResource("StandardMaterial3D_mrrbt")
+inner_radius = 400000.0
+outer_radius = 406000.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_mrtj2"]
+
+[sub_resource type="Gradient" id="Gradient_psxee"]
+colors = PackedColorArray(5.29438e-07, 0, 0.3427, 1, 0.0418836, 0, 0.54058, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_e28d7"]
+noise_type = 4
+frequency = 0.0891
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6ht7e"]
+color_ramp = SubResource("Gradient_psxee")
+noise = SubResource("FastNoiseLite_e28d7")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0kjac"]
+albedo_texture = SubResource("NoiseTexture2D_6ht7e")
+
+[sub_resource type="SphereMesh" id="SphereMesh_8coey"]
+material = SubResource("StandardMaterial3D_0kjac")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8ggpk"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_1ov3f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tt1br"]
+albedo_texture = ExtResource("9_bknev")
+emission_energy_multiplier = 16.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_bktw6"]
+material = SubResource("StandardMaterial3D_tt1br")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_firqu"]
+albedo_texture = ExtResource("9_bknev")
+
+[sub_resource type="BoxMesh" id="BoxMesh_quakw"]
+material = SubResource("StandardMaterial3D_firqu")
+size = Vector3(60, 60, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y4h7h"]
+albedo_texture = ExtResource("9_bknev")
+
+[sub_resource type="BoxMesh" id="BoxMesh_7w6dp"]
+material = SubResource("StandardMaterial3D_y4h7h")
+size = Vector3(50, 50, 50)
+
+[node name="Space" type="Node3D"]
+script = ExtResource("1_kvpof")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_oxsde")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -196183, -1201.41, 96784.2)
+script = ExtResource("2_c1rg8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("BoxShape3D_437nr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/CollisionShape3D"]
+mesh = SubResource("BoxMesh_xkks0")
+
+[node name="firstperson" type="Camera3D" parent="Player"]
+fov = 70.0
+far = 1.04857e+06
+
+[node name="raycamera" type="SpringArm3D" parent="Player"]
+spring_length = 3.0
+script = ExtResource("4_8hk4w")
+
+[node name="thirdperson" type="Camera3D" parent="Player/raycamera"]
+far = 1.04857e+06
+
+[node name="ui" parent="Player" instance=ExtResource("7_pvk77")]
+
+[node name="Bartholemew" type="StaticBody3D" parent="."]
+transform = Transform3D(80000, 0, 0, 0, 80000, 0, 0, 0, 80000, 360792, 324442, -439914)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bartholemew"]
+shape = SubResource("SphereShape3D_k31gl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Bartholemew/CollisionShape3D"]
+mesh = SubResource("SphereMesh_r1k35")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Bartholemew"]
+light_energy = 0.39
+light_indirect_energy = 3.75
+light_volumetric_fog_energy = 0.0
+light_specular = 0.05
+shadow_enabled = true
+shadow_bias = 10.0
+shadow_normal_bias = 10.0
+shadow_transmittance_bias = 5.475
+shadow_opacity = 0.0
+shadow_blur = 6.188
+distance_fade_enabled = true
+distance_fade_begin = 30.0
+distance_fade_shadow = 3e+06
+distance_fade_length = 2e+06
+omni_range = 9.22337e+18
+omni_attenuation = -0.152
+omni_shadow_mode = 0
+
+[node name="Bob" type="StaticBody3D" parent="." groups=["celestialbodies"]]
+transform = Transform3D(0.496967, 0.808545, -0.315083, -0.715592, 0.176456, -0.675862, -0.490866, 0.561354, 0.666283, 594438, 448635, -369746)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Bob"]
+transform = Transform3D(10000, 0, 0, 0, 10000, 0, 0, 0, 10000, 0, 0, 0)
+shape = SubResource("SphereShape3D_lg2s1")
+
+[node name="void" type="MeshInstance3D" parent="Bob/CollisionShape3D"]
+mesh = SubResource("SphereMesh_s4yl1")
+
+[node name="eventhorizon" type="MeshInstance3D" parent="Bob/CollisionShape3D"]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+mesh = SubResource("SphereMesh_3tlnr")
+
+[node name="grav" type="GPUParticlesAttractorSphere3D" parent="Bob/CollisionShape3D"]
+strength = 20000.0
+attenuation = 0.933028
+radius = 10.0
+
+[node name="particlets" type="GPUParticles3D" parent="Bob/CollisionShape3D"]
+amount = 550
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_tjy5f")
+draw_pass_1 = SubResource("SphereMesh_tioca")
+
+[node name="rings" type="GPUParticles3D" parent="Bob/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+amount = 500
+process_material = SubResource("ParticleProcessMaterial_q3pfq")
+draw_pass_1 = SubResource("BoxMesh_pjw6n")
+
+[node name="Maybe" type="StaticBody3D" parent="." groups=["celestialbodies"]]
+transform = Transform3D(20929.1, 252406, 431108, -104292, 424187, -243290, -488555, -79738.7, 70403.5, -616997, -14281.8, 596228)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Maybe"]
+shape = SubResource("SphereShape3D_n82qi")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Maybe/CollisionShape3D"]
+mesh = SubResource("SphereMesh_3gksc")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="Maybe"]
+amount = 400
+lifetime = 2.0
+mesh = SubResource("TorusMesh_rvnmw")
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 0.0
+emission_ring_radius = 0.2
+emission_ring_inner_radius = 0.0
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0, 0)
+
+[node name="Umo" type="StaticBody3D" parent="." groups=["celestialbodies"]]
+transform = Transform3D(100000, 0, 0, 0, 100000, 0, 0, 0, 100000, -101166, 746950, -528587)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Umo"]
+shape = SubResource("SphereShape3D_mrtj2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Umo/CollisionShape3D"]
+mesh = SubResource("SphereMesh_8coey")
+
+[node name="Atmosphere" type="Area3D" parent="Umo"]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0)
+script = ExtResource("7_f7adk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Umo/Atmosphere"]
+shape = SubResource("SphereShape3D_8ggpk")
+
+[node name="LocalSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_bcgsy")
+volume_db = 2.36
+
+[node name="Plnet" type="StaticBody3D" parent="." groups=["celestialbodies"]]
+transform = Transform3D(300, 0, 0, 0, 300, 0, 0, 0, 300, -269548, -19021.6, 49469.9)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plnet"]
+shape = SubResource("SphereShape3D_1ov3f")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plnet/CollisionShape3D"]
+mesh = SubResource("SphereMesh_bktw6")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="Plnet"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+amount = 500
+mesh = SubResource("BoxMesh_quakw")
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 0)
+emission_ring_height = 0.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.0
+direction = Vector3(0, 0, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+
+[node name="CPUParticles3D2" type="CPUParticles3D" parent="Plnet"]
+mesh = SubResource("BoxMesh_7w6dp")
+direction = Vector3(0, 0, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+
+[connection signal="area_entered" from="Umo/Atmosphere" to="Umo/Atmosphere" method="_on_area_entered"]
+[connection signal="body_entered" from="Umo/Atmosphere" to="Umo/Atmosphere" method="_on_body_entered"]

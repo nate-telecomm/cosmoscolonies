@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://ly63p2okmgjs"]
+
+[resource]
+metallic = 1.0
+metallic_specular = 1.0
+roughness = 0.54
+clearcoat_roughness = 0.0
+anisotropy = 0.76
+ao_light_affect = 1.0
+subsurf_scatter_strength = 1.0
+refraction_scale = 1.0

@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjvgeuu0gku40"]
+
+[ext_resource type="Script" path="res://fps.gd" id="1_vh0dw"]
+[ext_resource type="Script" path="res://speedcounter.gd" id="2_dqkp5"]
+[ext_resource type="Theme" uid="uid://cxx6qmqkaupx" path="res://assets/maintheme.tres" id="2_rskbk"]
+[ext_resource type="Script" path="res://nearest_grav.gd" id="3_3p2fe"]
+
+[node name="ui" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="fps" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_right = 120.0
+offset_bottom = 40.0
+theme = ExtResource("2_rskbk")
+text = "FPS"
+script = ExtResource("1_vh0dw")
+
+[node name="speed" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_top = 39.0
+offset_right = 224.0
+offset_bottom = 79.0
+theme = ExtResource("2_rskbk")
+text = "SPEED"
+script = ExtResource("2_dqkp5")
+
+[node name="nearest_grav" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_top = 78.0
+offset_right = 224.0
+offset_bottom = 118.0
+theme = ExtResource("2_rskbk")
+text = "NEAREST"
+script = ExtResource("3_3p2fe")

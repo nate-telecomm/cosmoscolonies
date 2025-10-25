@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://by3j03qhbqs7t"]
+
+[ext_resource type="Material" uid="uid://ly63p2okmgjs" path="res://assets/materials/metal.tres" id="1_lyihl"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wb11u"]
+material = ExtResource("1_lyihl")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_wb11u")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.87197, 0)
+billboard = 1
+fixed_size = true
+text = "player"
+font_size = 18

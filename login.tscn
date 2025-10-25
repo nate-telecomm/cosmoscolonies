@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8hqsit5c8g30"]
+
+[ext_resource type="Script" path="res://login.gd" id="1_cwqf4"]
+[ext_resource type="Shader" path="res://checker.gdshader" id="1_py1d6"]
+[ext_resource type="AudioStream" uid="uid://bcirgj7paxws8" path="res://assets/audio/that-one-russian-murder-drones-song.ogg" id="3_88s16"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iiq76"]
+shader = ExtResource("1_py1d6")
+shader_parameter/size = 25.0
+shader_parameter/color1 = Color(0.741176, 0, 0, 1)
+shader_parameter/color2 = Color(0.998903, 0.499181, 3.85046e-07, 1)
+shader_parameter/speed = 5.075
+shader_parameter/direction_x = 1.0
+shader_parameter/direction_y = 1.0
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_cwqf4")
+
+[node name="bg" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_iiq76")
+offset_right = 7082.0
+offset_bottom = 4409.0
+
+[node name="username" type="TextEdit" parent="."]
+offset_left = 787.0
+offset_top = 85.0
+offset_right = 1551.0
+offset_bottom = 624.0
+placeholder_text = "username"
+
+[node name="Button" type="Button" parent="."]
+offset_left = -552.0
+offset_top = 70.0
+offset_right = 1365.0
+offset_bottom = 303.0
+text = "ok"
+
+[node name="password" type="LineEdit" parent="."]
+offset_left = 213.0
+offset_top = 218.0
+offset_right = 704.0
+offset_bottom = 684.0
+placeholder_text = "password"
+secret = true
+
+[node name="status" type="RichTextLabel" parent="."]
+offset_left = 595.0
+offset_top = 718.0
+offset_right = 1135.0
+offset_bottom = 845.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_88s16")
+parameters/looping = true
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

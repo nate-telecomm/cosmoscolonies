@@ -1,0 +1,19 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://cxx6qmqkaupx"]
+
+[ext_resource type="FontFile" uid="uid://chi24fxraqjpt" path="res://assets/0xProtoNerdFont-Regular.ttf" id="1_kaghq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bl6sq"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0, 0, 1)
+
+[resource]
+default_font = ExtResource("1_kaghq")
+AcceptDialog/fonts/title_font = ExtResource("1_kaghq")
+AcceptDialog/styles/panel = SubResource("StyleBoxFlat_bl6sq")
+RichTextLabel/colors/default_color = Color(0.882353, 0, 0, 1)
+RichTextLabel/colors/font_outline_color = Color(0, 0, 0, 1)
+RichTextLabel/constants/outline_size = 3

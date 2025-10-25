@@ -1,0 +1,99 @@
+[gd_scene load_steps=13 format=3 uid="uid://ck4g2m3gbbgpx"]
+
+[ext_resource type="Material" uid="uid://ly63p2okmgjs" path="res://assets/materials/metal.tres" id="1_rxkhr"]
+[ext_resource type="Texture2D" uid="uid://dcem6bwnyobco" path="res://assets/images/nike.svg" id="2_awekg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_312n1"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_p30ug"]
+material = ExtResource("1_rxkhr")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r3mf7"]
+albedo_color = Color(0.0142752, 0.0142752, 0.0142752, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_i0nuw"]
+material = SubResource("StandardMaterial3D_r3mf7")
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qhy52"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_nx8ff"]
+material = SubResource("StandardMaterial3D_qhy52")
+top_radius = 0.15
+bottom_radius = 0.15
+height = 0.4
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tskgy"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_dkdx4"]
+material = ExtResource("1_rxkhr")
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fggwb"]
+albedo_color = Color(1, 0.134734, 0.210933, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_exysf"]
+material = SubResource("StandardMaterial3D_fggwb")
+size = Vector3(0.2, 0.2, 0.4)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+
+[node name="head" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("BoxShape3D_312n1")
+
+[node name="trian" type="MeshInstance3D" parent="CharacterBody3D/head"]
+mesh = SubResource("PrismMesh_p30ug")
+
+[node name="tophat" type="MeshInstance3D" parent="CharacterBody3D/head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.489795, 0)
+mesh = SubResource("CylinderMesh_i0nuw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D/head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.79, 0)
+mesh = SubResource("CylinderMesh_nx8ff")
+
+[node name="lowerbody" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, 0)
+shape = SubResource("BoxShape3D_tskgy")
+
+[node name="leg1" type="MeshInstance3D" parent="CharacterBody3D/lowerbody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.3, 0)
+mesh = SubResource("CylinderMesh_dkdx4")
+
+[node name="shoe1" type="MeshInstance3D" parent="CharacterBody3D/lowerbody/leg1"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.49012e-08, -0.2, 0.0515117)
+mesh = SubResource("BoxMesh_exysf")
+skeleton = NodePath("../..")
+
+[node name="Decal" type="Decal" parent="CharacterBody3D/lowerbody/leg1/shoe1"]
+transform = Transform3D(-4.37114e-08, -0.855705, -3.82137e-15, 4.37114e-08, 1.63498e-15, -1, 1, -3.7404e-08, 4.37114e-08, -0.101042, -0.00985628, 0.00190452)
+size = Vector3(0.349762, 0.169983, 0.153885)
+texture_albedo = ExtResource("2_awekg")
+
+[node name="leg2" type="MeshInstance3D" parent="CharacterBody3D/lowerbody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, -0.3, 0)
+mesh = SubResource("CylinderMesh_dkdx4")
+
+[node name="shoe2" type="MeshInstance3D" parent="CharacterBody3D/lowerbody/leg2"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -4.47035e-08, -0.2, 0.0515117)
+mesh = SubResource("BoxMesh_exysf")
+skeleton = NodePath("../..")
+
+[node name="Decal" type="Decal" parent="CharacterBody3D/lowerbody/leg2/shoe2"]
+transform = Transform3D(-4.37114e-08, -0.855705, -3.82137e-15, 4.37114e-08, 1.63498e-15, -1, 1, -3.7404e-08, 4.37114e-08, -0.101042, -0.00985628, 0.00190452)
+size = Vector3(0.349762, 0.169983, 0.153885)
+texture_albedo = ExtResource("2_awekg")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.27197, 0)
+billboard = 1
+fixed_size = true
+text = "player"
+font_size = 18
