@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://dlf5pxog21wtm"]
+[gd_scene load_steps=47 format=3 uid="uid://dlf5pxog21wtm"]
 
 [ext_resource type="Script" path="res://server_int.gd" id="1_kvpof"]
 [ext_resource type="Script" path="res://player-movement.gd" id="2_c1rg8"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://raycamera.gd" id="4_8hk4w"]
 [ext_resource type="Material" uid="uid://ly63p2okmgjs" path="res://assets/materials/metal.tres" id="4_815e3"]
 [ext_resource type="Script" path="res://atmosphere.gd" id="7_f7adk"]
+[ext_resource type="Texture2D" uid="uid://bkmdtlcl1lahk" path="res://assets/images/crosshair.png" id="7_or7bv"]
 [ext_resource type="PackedScene" uid="uid://bjvgeuu0gku40" path="res://ui.tscn" id="7_pvk77"]
 [ext_resource type="AudioStream" uid="uid://58h3h0olprls" path="res://assets/audio/sound2.ogg" id="8_bcgsy"]
 [ext_resource type="Texture2D" uid="uid://cp6w2aduq5wf1" path="res://assets/images/plne.png" id="9_bknev"]
@@ -193,6 +194,15 @@ script = ExtResource("4_8hk4w")
 far = 1.04857e+06
 
 [node name="ui" parent="Player" instance=ExtResource("7_pvk77")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Player"]
+
+[node name="TextureRect" type="TextureRect" parent="Player/CanvasLayer"]
+offset_right = 130.0
+offset_bottom = 85.0
+texture = ExtResource("7_or7bv")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Bartholemew" type="StaticBody3D" parent="."]
 transform = Transform3D(80000, 0, 0, 0, 80000, 0, 0, 0, 80000, 360792, 324442, -439914)

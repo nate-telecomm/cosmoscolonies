@@ -6,7 +6,8 @@ const ROT_SPEED: float = 2.0
 var AIR_DRAG: float
 var camera1: Camera3D
 var camera2: Camera3D
-var Marker: MeshInstance3D
+@onready var Marker: TextureRect = $CanvasLayer/TextureRect
+var object: Node3D
 @export var isFirst: bool
 @export var gravity_strength: float = 8
 
@@ -71,18 +72,14 @@ func _physics_process(delta: float) -> void:
 			var obj: String = await PopupService.prompt_input("", "Enter object")
 			print(obj)
 			if obj != "%%NULL%%":
-				var object: Node3D = get_tree().current_scene.get_node(obj)
-				mark(object)
+				object = get_tree().current_scene.get_node(obj)
+			else:
+				object = null
 
-func mark(object: Node3D) -> void:
-	if Marker != null:
-		Marker.queue_free()
-		Marker = null
-	var mesh: PlaneMesh
-	mesh = PlaneMesh.new()
-	mesh.size = Vector2i(30000, 30000)
-	mesh.material = load("res://assets/materials/marker.tres")
-	mesh.orientation = PlaneMesh.FACE_Z
-	Marker = MeshInstance3D.new()
-	Marker.mesh = mesh
-	object.add_child(Marker)
+		var camera := get_viewport().get_camera_3d()
+		if object == null or camera.is_position_behind(object.global_transform.origin):
+			Marker.visible = false
+		else:
+			Marker.visible = true
+			var screen_pos: Vector2 = camera.unproject_position(object.global_transform.origin)
+			Marker.position = screen_pos
