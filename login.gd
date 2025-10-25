@@ -6,12 +6,14 @@ extends Control
 @onready var login = $VBoxContainer/Button
 @onready var status = $VBoxContainer/status
 @onready var music = $AudioStreamPlayer
+var video: VideoStreamPlayer
 
 var socket = WebSocketPeer.new()
 const sep = "$%^%^%^&*((&W^))"
 
 func _ready() -> void:
-	music.play()
+	video = get_node("VideoStreamPlayer")
+	video.size = get_viewport_rect().size
 
 var connected = false
 var authenticated = false
@@ -61,3 +63,7 @@ func _process(_delta):
 		elif state == WebSocketPeer.STATE_CLOSED:
 			status.text = "Connection closed"
 			connected = false
+
+
+func _on_video_stream_player_finished() -> void:
+	video.visible = false
