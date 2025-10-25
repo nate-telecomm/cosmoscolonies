@@ -87,9 +87,13 @@ func _physics_process(delta: float) -> void:
 		
 		if Input.is_action_just_pressed("menu"):
 			var obj: String = await PopupService.prompt_input("", "Enter object")
-			print(obj)
 			if obj != "%%NULL%%":
-				object = get_tree().current_scene.get_node(obj)
+				if obj.begins_with("player:"):
+					for player_node in GlobalData.other_players:
+						if GlobalData.other_players[player_node].name == obj.trim_prefix("player:"):
+							object = GlobalData.other_players[player_node]
+				else:
+					object = get_tree().current_scene.get_node(obj)
 			else:
 				object = null
 
