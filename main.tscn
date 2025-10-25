@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://dlf5pxog21wtm"]
+[gd_scene load_steps=56 format=3 uid="uid://dlf5pxog21wtm"]
 
 [ext_resource type="Script" path="res://server_int.gd" id="1_kvpof"]
 [ext_resource type="Script" path="res://player-movement.gd" id="2_c1rg8"]
@@ -143,6 +143,32 @@ albedo_texture = SubResource("NoiseTexture2D_6ht7e")
 material = SubResource("StandardMaterial3D_0kjac")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_8ggpk"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_a8vxh"]
+
+[sub_resource type="Gradient" id="Gradient_fpw0g"]
+colors = PackedColorArray(6.31716e-07, 0.31663, 2.40654e-07, 1, 3.03224e-06, 0.704169, 0.446656, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dypip"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wqmg4"]
+color_ramp = SubResource("Gradient_fpw0g")
+noise = SubResource("FastNoiseLite_dypip")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gg4d4"]
+albedo_texture = SubResource("NoiseTexture2D_wqmg4")
+
+[sub_resource type="SphereMesh" id="SphereMesh_vjtou"]
+material = SubResource("StandardMaterial3D_gg4d4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_27lue"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_p8mue"]
+material = SubResource("StandardMaterial3D_27lue")
+inner_radius = 350000.0
+outer_radius = 351000.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_1ov3f"]
 
@@ -306,6 +332,20 @@ shape = SubResource("SphereShape3D_8ggpk")
 [node name="LocalSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_bcgsy")
 volume_db = 2.36
+
+[node name="James" type="StaticBody3D" parent="." groups=["celestialbodies"]]
+transform = Transform3D(400002, 0, 0, 0, 400002, 0, 0, 0, 400002, 638124, 0, -816514)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="James"]
+shape = SubResource("SphereShape3D_a8vxh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="James/CollisionShape3D"]
+mesh = SubResource("SphereMesh_vjtou")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="James"]
+transform = Transform3D(0.979475, -0.135753, 0.148997, 0.130207, 0.9904, 0.0464094, -0.153867, -0.0260564, 0.987748, 0, 0, 0)
+mesh = SubResource("TorusMesh_p8mue")
+gravity = Vector3(0, 0, 0)
 
 [node name="Plnet" type="StaticBody3D" parent="." groups=["celestialbodies"]]
 transform = Transform3D(300, 0, 0, 0, 300, 0, 0, 0, 300, -269548, -19021.6, 49469.9)
