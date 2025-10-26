@@ -85,6 +85,9 @@ func _change_scene(player: CharacterBody3D) -> void:
 		GlobalData.PlayLocalMusic("consumatesurvivor.caf")
 		
 		var pnode: StaticBody3D = get_tree().current_scene.get_node(PlanetName)
+		var size: float = pnode.get_node("CollisionShape3D").shape.radius * 2
+		var exit_offset = Vector3(pnode.position.x, pnode.position.y + size, pnode.position.z)
+		player.position = exit_offset
 
 		_is_transitioning = false
 		player._origin_shift_enabled = true
