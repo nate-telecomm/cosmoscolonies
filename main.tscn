@@ -256,10 +256,6 @@ material = SubResource("StandardMaterial3D_074og")
 [node name="Space" type="Node3D"]
 script = ExtResource("1_kvpof")
 
-[node name="LocalSFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("8_bcgsy")
-volume_db = 2.36
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("2_oxsde")
 
@@ -343,6 +339,13 @@ stretch_mode = 5
 [node name="mislHUD" parent="Player" instance=ExtResource("11_vivmo")]
 
 [node name="chat" parent="Player" instance=ExtResource("8_dg77c")]
+
+[node name="Music" type="AudioStreamPlayer" parent="Player"]
+volume_db = -9.005
+
+[node name="LocalSFX" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("8_bcgsy")
+volume_db = 2.36
 
 [node name="Bartholemew" type="StaticBody3D" parent="."]
 transform = Transform3D(16000.08, 0, 0, 0, 16000.08, 0, 0, 0, 16000.08, -3446.84, 12977.68, -28043.72)
@@ -429,7 +432,7 @@ direction = Vector3(0, 0, 0)
 gravity = Vector3(0, 0, 0)
 
 [node name="Umo" type="StaticBody3D" parent="." groups=["celestialbodies"]]
-transform = Transform3D(4000, 0, 0, 0, 4000, 0, 0, 0, 4000, -162149.39, 159146.81, -204248.87)
+transform = Transform3D(4000, 0, 0, 0, 4000, 0, 0, 0, 4000, -8974.297, 356533.22, -204248.87)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Umo"]
 shape = SubResource("SphereShape3D_mrtj2")
@@ -529,9 +532,6 @@ shape = SubResource("SphereShape3D_yaehf")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Fid/Area3D/CollisionShape3D"]
 mesh = SubResource("SphereMesh_cegan")
-
-[node name="Music" type="AudioStreamPlayer" parent="."]
-volume_db = -9.005
 
 [connection signal="area_entered" from="Umo/Atmosphere" to="Umo/Atmosphere" method="_on_area_entered"]
 [connection signal="body_entered" from="Umo/Atmosphere" to="Umo/Atmosphere" method="_on_body_entered"]

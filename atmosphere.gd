@@ -5,7 +5,6 @@ var _is_transitioning: bool = false
 
 func _ready() -> void:
 	PlanetName = get_parent().name
-	print(PlanetName)
 
 func _on_body_entered(body: Node3D) -> void:
 	if _is_transitioning:
@@ -16,41 +15,76 @@ func _on_body_entered(body: Node3D) -> void:
 	call_deferred("_change_scene", body)
 
 func _change_scene(player: CharacterBody3D) -> void:
-	var tree: SceneTree = get_tree()
-	var old_scene: Node = tree.current_scene
+	if PlanetName != "Space":
+		player._origin_shift_enabled = false
+		PopupService.popup("Entering " + PlanetName + "...")
+		var tree: SceneTree = get_tree()
+		var old_scene: Node = tree.current_scene
 
-	# Save player transform
-	var saved_transform: Transform3D = player.global_transform
+		var saved_transform: Transform3D = player.global_transform
 
-	# Remove player from current parent (if any)
-	if player.get_parent():
-		player.get_parent().remove_child(player)
+		if player.get_parent():
+			player.get_parent().remove_child(player)
 
-	# Load the new scene
-	var scene_path := "res://assets/planets/%s/main.tscn" % PlanetName
-	var packed := ResourceLoader.load(scene_path)
-	if packed == null or not packed is PackedScene:
-		push_error("Failed to load planet scene: " + scene_path)
-		if old_scene:
-			old_scene.add_child(player)
+		var scene_path := "res://assets/planets/%s/main.tscn" % PlanetName
+		var packed := ResourceLoader.load(scene_path)
+		if packed == null or not packed is PackedScene:
+			push_error("Failed to load planet scene: " + scene_path)
+			if old_scene:
+				old_scene.add_child(player)
+			_is_transitioning = false
+			return
+
+		var new_scene: Node = packed.instantiate()
+		tree.root.add_child(new_scene)
+		tree.current_scene = new_scene
+
+		await tree.process_frame
+
+		new_scene.add_child(player)
+		player.position = Vector3(0, 5000, 0)
+		player.velocity = Vector3.ZERO
+
+		if old_scene and old_scene != new_scene:
+			old_scene.queue_free()
+		match PlanetName:
+			"Umo":
+				GlobalData.PlayLocalMusic("ph4se.vox")
+
 		_is_transitioning = false
-		return
+	else:
+		PopupService.popup("Exitting " + PlanetName + "...")
+		var tree: SceneTree = get_tree()
+		var old_scene: Node = tree.current_scene
 
-	# Instantiate and add the new scene
-	var new_scene: Node = packed.instantiate()
-	tree.root.add_child(new_scene)
-	tree.current_scene = new_scene
+		var saved_transform: Transform3D = player.global_transform
 
-	# Wait a frame to make sure everything is ready
-	await tree.process_frame
+		if player.get_parent():
+			player.get_parent().remove_child(player)
 
+		var scene_path := "res://main.tscn"
+		var packed := ResourceLoader.load(scene_path)
+		if packed == null or not packed is PackedScene:
+			push_error("Failed to load planet scene: " + scene_path)
+			if old_scene:
+				old_scene.add_child(player)
+			_is_transitioning = false
+			return
 
-	new_scene.add_child(player)
-	player.position = Vector3(0, 5000, 0)
-	player.velocity = Vector3.ZERO
+		var new_scene: Node = packed.instantiate()
+		tree.root.add_child(new_scene)
+		tree.current_scene = new_scene
 
-	# Free old scene
-	if old_scene and old_scene != new_scene:
-		old_scene.queue_free()
+		await tree.process_frame
 
-	_is_transitioning = false
+		new_scene.add_child(player)
+		player.position = Vector3(0, 0, 0)
+
+		if old_scene and old_scene != new_scene:
+			old_scene.queue_free()
+		GlobalData.PlayLocalMusic("consumatesurvivor.caf")
+		
+		var pnode: StaticBody3D = get_tree().current_scene.get_node(PlanetName)
+
+		_is_transitioning = false
+		player._origin_shift_enabled = true

@@ -18,6 +18,7 @@ var WarnedAboutFuel: bool = false
 var SPEED: float = 100.0
 var ACCEL: float = 6000.0
 @export var RemainingFuel: float = 0.0
+@export var _origin_shift_enabled: bool = true
 
 func _text_submitted():
 	if EnterBox.text != "":
@@ -133,20 +134,17 @@ func _physics_process(delta: float) -> void:
 			RemainingFuel = RocketStats["fuel_capacity"]/100
 
 func _handle_origin_shift():
+	if !_origin_shift_enabled:
+		return
 	var threshold: float = 5.0
-	
 	if global_position.length() > threshold:
 		var offset: Vector3 = global_position
-
 		for node in get_tree().get_nodes_in_group("movable"):
 			if node != self and node is Node3D:
 				node.global_position -= offset
-
 		for key in GlobalData.other_players.keys():
 			var other = GlobalData.other_players[key]
 			if other and other is Node3D:
 				other.global_position -= offset
-
 		global_position = Vector3.ZERO
-
 		print("Origin shifted by: ", offset)

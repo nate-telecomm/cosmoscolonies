@@ -235,7 +235,7 @@ func update_other_players(players_data):
 				planets.erase(username)
 
 func PlayLocalSFX(option: String) -> void:
-	var sfx: AudioStreamPlayer = get_tree().current_scene.get_node("LocalSFX")
+	var sfx: AudioStreamPlayer = get_tree().current_scene.get_node("Player").get_node("LocalSFX")
 	if sfx:
 		sfx.stop()
 	var stream: AudioStream
@@ -246,7 +246,7 @@ func PlayLocalSFX(option: String) -> void:
 	print(stream)
 
 func PlayLocalMusic(track: String) -> void:
-	var sfx: AudioStreamPlayer = get_tree().current_scene.get_node("Music")
+	var sfx: AudioStreamPlayer = get_tree().current_scene.get_node("Player").get_node("Music")
 	if sfx:
 		sfx.stop()
 	var stream: AudioStream

@@ -54,3 +54,29 @@ func prompt_input(title: String, body: String, default_text: String = "") -> Str
 	if wasThird:
 		Player.isFirst = false
 	return inp
+
+func popup(text: String) -> void:
+	var player = get_tree().current_scene.get_node("Player")
+	var ui = player.get_node("ui")
+
+	var label := Label.new()
+	label.theme = load("res://assets/maintheme.tres")
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	ui.add_child(label)
+	var viewport_size = get_viewport().get_visible_rect().size
+
+	for i in text.length():
+		label.text += text.substr(i, 1)
+		var node_size = label.size
+		label.position = (viewport_size - node_size) / 2
+		await get_tree().create_timer(0.05).timeout
+
+	await get_tree().create_timer(3).timeout
+
+	while label.text.length() > 0:
+		label.text = label.text.substr(0, label.text.length() - 1)
+		var node_size = label.size
+		label.position = (viewport_size - node_size) / 2
+		await get_tree().create_timer(0.03).timeout
+
+	label.queue_free()
