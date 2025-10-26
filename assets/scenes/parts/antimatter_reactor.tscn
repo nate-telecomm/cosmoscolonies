@@ -60,6 +60,7 @@ skeleton = NodePath("../CollisionShape3D")
 amount = 4
 lifetime = 2.0
 lifetime_randomness = 0.14
+local_coords = true
 mesh = SubResource("SphereMesh_aao2t")
 direction = Vector3(0, 0, 0)
 spread = 180.0

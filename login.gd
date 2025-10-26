@@ -16,6 +16,7 @@ const sep = "$%^%^%^&*((&W^))"
 func _ready() -> void:
 	video = get_node("VideoStreamPlayer")
 	video.size = get_viewport_rect().size
+	address.text = "home.ununhexium.net"
 
 var connected = false
 var authenticated = false

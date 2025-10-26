@@ -21,6 +21,7 @@ func prompt_input(title: String, body: String, default_text: String = "") -> Str
 	IsPopup = true
 	Player = get_tree().current_scene.get_node("Player")
 	UI = Player.get_node("ui")
+	var wasThird: bool = !Player.isFirst
 	Player.isFirst = true
 	
 	
@@ -50,4 +51,6 @@ func prompt_input(title: String, body: String, default_text: String = "") -> Str
 
 	var inp: String = _lastInput
 	_lastInput = ""
+	if wasThird:
+		Player.isFirst = false
 	return inp

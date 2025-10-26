@@ -45,6 +45,7 @@ mesh = SubResource("CylinderMesh_dvfn5")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.7312205, 0)
 emitting = false
 amount = 30
+local_coords = true
 mesh = SubResource("SphereMesh_c8opd")
 direction = Vector3(0, -1, 0)
 spread = 11.75

@@ -29,6 +29,7 @@ mesh = SubResource("CylinderMesh_ctwby")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.6000001, 0)
 emitting = false
 amount = 90
+local_coords = true
 mesh = SubResource("SphereMesh_ukhgr")
 direction = Vector3(0, -1, 0)
 spread = 0.0

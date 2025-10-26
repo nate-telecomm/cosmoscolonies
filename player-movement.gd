@@ -1,7 +1,5 @@
 extends CharacterBody3D
 
-var SPEED: float = 100.0
-var ACCEL: float = 6000.0
 const ROT_SPEED: float = 2.0
 var AIR_DRAG: float
 var camera1: Camera3D
@@ -14,6 +12,10 @@ var MessageBox: TextEdit
 var EnterBox: LineEdit
 var SendButton: RichTextLabel
 var RocketStats: Dictionary
+@export var RocketJSON: String
+
+var SPEED: float = 100.0
+var ACCEL: float = 6000.0
 @export var RemainingFuel: float = 0.0
 
 func _text_submitted():
@@ -112,6 +114,8 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("menu2"):
 			var json: String = await PopupService.prompt_input("", "Enter rocket JSON")
 			if json != "%%NULL%%":
-				RocketStats = RocketService.build_rocket(json, self)
+				RocketJSON = json
+				RocketStats = RocketService.build_rocket(RocketJSON, self)
 				SPEED = RocketStats["thrust"]
+				ACCEL = RocketStats["accel"]
 				RemainingFuel = RocketStats["fuel_capacity"]

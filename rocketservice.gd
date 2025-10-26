@@ -27,7 +27,9 @@ func _disable_part_collisions(node: Node) -> void:
 		else:
 			_disable_part_collisions(child)
 
-func build_rocket(json_string: String, parent_body: CharacterBody3D) -> Dictionary:
+func build_rocket(json_string: String, parent_body: Node3D) -> Dictionary:
+	if parent_body.has_node("Rocket"):
+		parent_body.get_node("Rocket").queue_free()
 	var blueprint = JSON.parse_string(json_string)
 	if blueprint == null or not blueprint.has("parts"):
 		push_error("Invalid rocket blueprint!")
@@ -41,7 +43,8 @@ func build_rocket(json_string: String, parent_body: CharacterBody3D) -> Dictiona
 	var total_stats = {
 		"fuel_capacity": 0,
 		"thrust": 0,
-		"mass": 0
+		"mass": 0,
+		"accel": 0
 	}
 	
 	var current_offset = Vector3(0, 0, 0)
@@ -70,5 +73,6 @@ func build_rocket(json_string: String, parent_body: CharacterBody3D) -> Dictiona
 				total_stats["fuel_capacity"] += stats.get("fuel_capacity", 0)
 				total_stats["thrust"] += stats.get("thrust", 0)
 				total_stats["mass"] += stats.get("mass", 0)
+				total_stats["accel"] += stats.get("accel", 0)
 	
 	return total_stats

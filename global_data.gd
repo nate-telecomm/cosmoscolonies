@@ -106,7 +106,6 @@ func init_connect() -> void:
 	connected = true
 
 func _process(delta):
-	await get_tree().create_timer(1).timeout
 	maindelta = delta
 	if connected:
 		var player = get_tree().current_scene.get_node_or_null("Player")
@@ -149,7 +148,8 @@ func _process(delta):
 						str(player.rotation.x) + " " +
 						str(player.rotation.y) + " " +
 						str(player.rotation.z) + " " +
-						get_tree().current_scene.name)
+						get_tree().current_scene.name + " " +
+						player.RocketJSON)
 					socket.send_text("gpl")
 					
 		elif state == WebSocketPeer.STATE_CLOSED:
@@ -181,6 +181,8 @@ func update_other_players(players_data):
 			player_info["zr"] = 0
 		if player_info["planet"] == null:
 			player_info["planet"] = "Space"
+		if player_info["rocketjson"] == null:
+			player_info["rocketjson"] = "{}"
 		
 		var x = float(player_info.get("x", 0))
 		var y = float(player_info.get("y", 0))
@@ -211,6 +213,7 @@ func update_other_players(players_data):
 			
 			player_node.global_transform.origin = pos
 			player_node.rotation = rot
+			RocketService.build_rocket(player_info["rocketjson"], player_node)
 			
 	var keys = other_players.keys()
 	for username in keys:
