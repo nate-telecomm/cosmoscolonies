@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://dlf5pxog21wtm"]
+[gd_scene load_steps=67 format=3 uid="uid://dlf5pxog21wtm"]
 
 [ext_resource type="Script" uid="uid://cnh78i8vay3mg" path="res://server_int.gd" id="1_kvpof"]
 [ext_resource type="Script" uid="uid://dxql26pflbtdh" path="res://player-movement.gd" id="2_c1rg8"]
@@ -73,24 +73,6 @@ material = SubResource("StandardMaterial3D_rifn2")
 
 [sub_resource type="SphereMesh" id="SphereMesh_3tlnr"]
 material = ExtResource("11_1hv5g")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tjy5f"]
-emission_shape = 1
-emission_sphere_radius = 10.0
-orbit_velocity_min = 9.49949e-08
-orbit_velocity_max = 9.49949e-08
-linear_accel_min = -2.23517e-06
-linear_accel_max = -2.23517e-06
-turbulence_noise_strength = 0.5
-turbulence_noise_scale = 10.0
-collision_mode = 1
-collision_friction = 1.0
-collision_bounce = 1.0
-
-[sub_resource type="SphereMesh" id="SphereMesh_tioca"]
-material = ExtResource("11_1hv5g")
-radius = 4.0
-height = 8.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_q3pfq"]
 emission_shape = 6
@@ -360,18 +342,13 @@ mesh = SubResource("SphereMesh_3tlnr")
 
 [node name="grav" type="GPUParticlesAttractorSphere3D" parent="Bob/CollisionShape3D"]
 strength = 20000.0
-attenuation = 0.933028
-radius = 10.0
-
-[node name="particlets" type="GPUParticles3D" parent="Bob/CollisionShape3D"]
-amount = 550
-trail_lifetime = 1.0
-process_material = SubResource("ParticleProcessMaterial_tjy5f")
-draw_pass_1 = SubResource("SphereMesh_tioca")
+attenuation = 1e-05
+radius = 1024.0
 
 [node name="rings" type="GPUParticles3D" parent="Bob/CollisionShape3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 amount = 500
+lifetime = 0.01
 process_material = SubResource("ParticleProcessMaterial_q3pfq")
 draw_pass_1 = SubResource("BoxMesh_pjw6n")
 
@@ -386,7 +363,7 @@ mesh = SubResource("SphereMesh_3gksc")
 
 [node name="CPUParticles3D" type="CPUParticles3D" parent="Maybe"]
 amount = 400
-lifetime = 2.0
+lifetime = 0.01
 mesh = SubResource("TorusMesh_rvnmw")
 emission_shape = 6
 emission_ring_axis = Vector3(0, 1, 0)
@@ -425,6 +402,7 @@ mesh = SubResource("SphereMesh_vjtou")
 
 [node name="CPUParticles3D" type="CPUParticles3D" parent="James"]
 transform = Transform3D(0.490981, -0.418684, 0.763964, 0.0544798, 0.88998, 0.452733, -0.869466, -0.180663, 0.459773, 5.06639e-05, -0.0020073, 0.000556231)
+lifetime = 0.01
 mesh = SubResource("TorusMesh_p8mue")
 gravity = Vector3(0, 0, 0)
 

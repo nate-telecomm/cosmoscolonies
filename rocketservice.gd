@@ -60,10 +60,11 @@ func build_rocket(json_string: String, parent_body: Node3D) -> Dictionary:
 		var part_instance = part_scene.instantiate()
 		rocket.add_child(part_instance)
 		_disable_part_collisions(part_instance)
+		part_instance.scale /= 25
 
 		#var height = get_part_height(part_instance)
 		part_instance.position = current_offset
-		current_offset.y -= 5
+		current_offset.y -= 0.20
 
 		var stats_path = "res://assets/data/parts/%s.json" % rname
 		if ResourceLoader.exists(stats_path):
