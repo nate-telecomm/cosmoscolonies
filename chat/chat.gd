@@ -23,10 +23,10 @@ func update_chat_display() -> void:
 	var text := ""
 	for chat in GlobalData.chat_messages:
 		text += "[%s]: %s\n" % [chat["user"], chat["msg"]]
-	
+
 	chat_messages.text = text
-	
-	chat_messages.scroll_vertical = chat_messages.get_v_scroll_bar().max_value
+
+	chat_messages.scroll_vertical = chat_messages.get_line_count()
 
 
 func _on_messager_focus_entered() -> void:

@@ -24,7 +24,8 @@ func _text_submitted():
 		EnterBox.text = ""
 		
 func isInRocket() -> bool:
-	return get_node("Rocket") != null
+	
+	return get_node_or_null("Rocket") != null
 func _rocket_Engine() -> StaticBody3D:
 	return get_node("Rocket").get_node("Engine")
 

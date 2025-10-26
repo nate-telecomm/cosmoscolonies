@@ -23,6 +23,7 @@ config/icon="res://assets/images/logo.png"
 GlobalData="*res://global_data.gd"
 PopupService="*res://popupservice.gd"
 RocketService="*res://rocketservice.gd"
+plne="*res://plne/plne.gd"
 
 [display]
 

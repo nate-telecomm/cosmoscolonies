@@ -4,6 +4,7 @@ var username: String
 var password: String
 var maindelta: float
 var chat_messages: Array = []
+var lerp_speed: float = 8.0
 
 func array_to_string(arr: Array) -> String:
 	var result_string = ""
@@ -215,14 +216,14 @@ func update_other_players(players_data):
 				other_players[username]["json"] = player_info["rocketjson"]
 				RocketService.build_rocket(other_players[username]["json"], player_node)
 			
-			player_node.global_transform.origin = pos
-			player_node.rotation = rot
+			player_node.global_transform.origin = player_node.global_transform.origin.lerp(pos, lerp_speed * maindelta)
+			player_node.rotation = player_node.rotation.linear_interpolate(rot, lerp_speed * maindelta)
 			
 	var keys = other_players.keys()
 	for username in keys:
 		var last = other_players[username]["last_seen"]
 		var node_ref = other_players[username]["node"]
-		
+
 		if now - last > 1.8:
 			node_ref.queue_free()
 			other_players.erase(username)
@@ -235,7 +236,8 @@ func update_other_players(players_data):
 
 func PlayLocalSFX(option: String) -> void:
 	var sfx: AudioStreamPlayer = get_tree().current_scene.get_node("LocalSFX")
-	sfx.stop()
+	if sfx:
+		sfx.stop()
 	var stream: AudioStream = null
 	match option:
 		"sound1":
@@ -244,6 +246,7 @@ func PlayLocalSFX(option: String) -> void:
 			stream = load("res://assets/audio/sound2.ogg")
 		"sound3":
 			stream = load("res://assets/audio/sound3.ogg")
+	
 	sfx.stream = stream
 	print(stream)
 	sfx.play()
