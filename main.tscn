@@ -150,8 +150,8 @@ distance_fade_max_distance = 4096.0
 
 [sub_resource type="TorusMesh" id="TorusMesh_rvnmw"]
 material = SubResource("StandardMaterial3D_mrrbt")
-inner_radius = 400000.0
-outer_radius = 406000.0
+inner_radius = 300000.0
+outer_radius = 306000.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mrtj2"]
 
@@ -317,7 +317,7 @@ stretch_mode = 5
 [node name="chat" parent="Player" instance=ExtResource("8_dg77c")]
 
 [node name="Bartholemew" type="StaticBody3D" parent="."]
-transform = Transform3D(400002, 0, 0, 0, 400002, 0, 0, 0, 400002, -86171, 324442, -701093)
+transform = Transform3D(200002, 0, 0, 0, 200002, 0, 0, 0, 200002, -86171, 324442, -291836.47)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bartholemew"]
 shape = SubResource("SphereShape3D_k31gl")
@@ -375,7 +375,7 @@ process_material = SubResource("ParticleProcessMaterial_q3pfq")
 draw_pass_1 = SubResource("BoxMesh_pjw6n")
 
 [node name="Maybe" type="StaticBody3D" parent="." groups=["celestialbodies"]]
-transform = Transform3D(20929.043, 252405.17, 431107.44, -104291.83, 424185.63, -243289.5, -488554.16, -79738.32, 70403.19, -616997, -14281.8, 1075892)
+transform = Transform3D(12557.427, 151443.08, 258664.45, -62575.094, 254511.38, -145973.69, -293132.47, -47843, 42241.914, -616997, -14281.8, 1075892)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Maybe"]
 shape = SubResource("SphereShape3D_n82qi")
@@ -397,7 +397,7 @@ direction = Vector3(0, 0, 0)
 gravity = Vector3(0, 0, 0)
 
 [node name="Umo" type="StaticBody3D" parent="." groups=["celestialbodies"]]
-transform = Transform3D(100000, 0, 0, 0, 100000, 0, 0, 0, 100000, -101166, 2997374, -528587)
+transform = Transform3D(50000, 0, 0, 0, 50000, 0, 0, 0, 50000, -101166, 2997374, -528587)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Umo"]
 shape = SubResource("SphereShape3D_mrtj2")
@@ -413,7 +413,7 @@ script = ExtResource("7_f7adk")
 shape = SubResource("SphereShape3D_8ggpk")
 
 [node name="James" type="StaticBody3D" parent="." groups=["celestialbodies"]]
-transform = Transform3D(400002, 0, 0, 0, 400002, 0, 0, 0, 400002, 2440559.3, 0, -2224067.7)
+transform = Transform3D(200002, 0, 0, 0, 200002, 0, 0, 0, 200002, 1291277.9, 0, -2224067.7)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="James"]
 shape = SubResource("SphereShape3D_a8vxh")
