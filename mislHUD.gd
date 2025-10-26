@@ -20,6 +20,9 @@ var progress_timer: float = 0.0
 var progress_duration: float = 2.5
 var original_size: Vector2
 var target_object: Node
+var progress_completed: bool
+
+var previous_selection
 
 var is_progressing: bool = false
 
@@ -67,6 +70,7 @@ func _process(_delta):
 
 		if angle < look_at_angle_threshold:
 			target_size += Vector2(look_at_scale_increase, look_at_scale_increase)
+			previous_selection = marker
 			selected = marker
 			target_object = obj
 
@@ -74,6 +78,7 @@ func _process(_delta):
 
 	if selected and Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE):
 		if not is_progressing:
+
 			progress_marker = marker_scene.instantiate()
 			progress_marker.position = selected.position
 			progress_marker.size = selected.size
@@ -81,6 +86,7 @@ func _process(_delta):
 			original_size = progress_marker.size
 			progress_timer = 0.0
 			is_progressing = true
+			progress_completed = false
 		else:
 			progress_timer += _delta
 			var t = progress_timer / progress_duration
@@ -88,13 +94,29 @@ func _process(_delta):
 			var delta_size = original_size - new_size
 			progress_marker.position = selected.position + (delta_size / 2)
 			progress_marker.size = new_size
+
+			if progress_timer >= progress_duration and not progress_completed:
+				var label = selected.get_node_or_null("RichTextLabel")
+				if label:
+					label.visible = true
+				progress_completed = true
+
 	else:
+
 		if is_progressing:
-			if selected and progress_timer >= 0.0:
-				emit_signal("target_acquired", target_object)
-				print("Misl fired at object: ", target_object)
 			if progress_marker:
 				progress_marker.queue_free()
 				progress_marker = null
+
+			if progress_completed and selected:
+				emit_signal("target_acquired", target_object)
+				print("Misl fired at object: ", target_object)
+
+			if previous_selection:
+				var label = previous_selection.get_node_or_null("RichTextLabel")
+				if label:
+					label.visible = false
+
 			progress_timer = 0.0
 			is_progressing = false
+			progress_completed = false
