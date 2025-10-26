@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://lwe4fxmyfpjm"]
+[gd_scene load_steps=11 format=3 uid="uid://lwe4fxmyfpjm"]
 
 [ext_resource type="Material" uid="uid://ly63p2okmgjs" path="res://assets/materials/metal.tres" id="1_3mxvt"]
 [ext_resource type="Material" uid="uid://c3ludvxn5xv6t" path="res://assets/materials/antimatter.tres" id="2_sgo8y"]
 [ext_resource type="Material" uid="uid://boml0cvolr6gf" path="res://assets/materials/glass.tres" id="3_8f8dr"]
 [ext_resource type="Texture2D" uid="uid://lqbxhqko6rdk" path="res://assets/images/cge.png" id="4_tf2ei"]
+[ext_resource type="Texture2D" uid="uid://cs2o5n6w5i1sx" path="res://assets/images/antimatter_warning.png" id="5_sgo8y"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_g181l"]
 height = 5.0
@@ -67,3 +68,7 @@ spread = 180.0
 gravity = Vector3(0, 0, 0)
 initial_velocity_min = 0.55
 initial_velocity_max = 0.6
+
+[node name="Decal2" type="Decal" parent="."]
+transform = Transform3D(-1, -4.371139e-08, -1.6703743e-22, 7.301438e-30, 1.9106857e-15, -1, 4.371139e-08, -1, -1.9106855e-15, 0, -1.4448903, -1.8)
+texture_albedo = ExtResource("5_sgo8y")

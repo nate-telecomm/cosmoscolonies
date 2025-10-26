@@ -1,0 +1,7 @@
+{
+  "type": "engine",
+  "mass": 20,
+  "thrust": 50000,
+  "accel": 9000000,
+  "desc": "Weak, but highly efficient for long distance travels."
+}

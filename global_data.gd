@@ -217,7 +217,7 @@ func update_other_players(players_data):
 				RocketService.build_rocket(other_players[username]["json"], player_node)
 			
 			player_node.global_transform.origin = player_node.global_transform.origin.lerp(pos, lerp_speed * maindelta)
-			player_node.rotation = player_node.rotation.linear_interpolate(rot, lerp_speed * maindelta)
+			player_node.rotation = rot
 			
 	var keys = other_players.keys()
 	for username in keys:

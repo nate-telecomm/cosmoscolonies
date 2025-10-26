@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bs4j4nrx2dmpu"]
+[gd_scene load_steps=10 format=3 uid="uid://bs4j4nrx2dmpu"]
 
 [ext_resource type="Material" uid="uid://ly63p2okmgjs" path="res://assets/materials/metal.tres" id="1_migo6"]
 [ext_resource type="Texture2D" uid="uid://buqbqpwoagnt1" path="res://assets/images/nuclear.png" id="2_jn8gl"]
 [ext_resource type="Texture2D" uid="uid://lqbxhqko6rdk" path="res://assets/images/cge.png" id="3_maskv"]
+[ext_resource type="Texture2D" uid="uid://cxjnrrgn5wcuu" path="res://assets/images/radiation_warning.png" id="4_jn8gl"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_whve1"]
 height = 5.0
@@ -54,3 +55,7 @@ spread = 22.95
 gravity = Vector3(0, 0, 0)
 initial_velocity_min = 2.1
 initial_velocity_max = 4.1
+
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(-1, -4.371139e-08, -1.6703743e-22, 7.301438e-30, 1.9106857e-15, -1, 4.371139e-08, -1, -1.9106855e-15, 0, 0.40000004, -1.8)
+texture_albedo = ExtResource("4_jn8gl")

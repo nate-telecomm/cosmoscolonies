@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bs0y1nu4dkh0e"]
+[gd_scene load_steps=7 format=3 uid="uid://bs0y1nu4dkh0e"]
 
 [ext_resource type="Material" uid="uid://ly63p2okmgjs" path="res://assets/materials/metal.tres" id="1_msvc8"]
 [ext_resource type="Texture2D" uid="uid://buqbqpwoagnt1" path="res://assets/images/nuclear.png" id="2_3vksr"]
 [ext_resource type="Texture2D" uid="uid://lqbxhqko6rdk" path="res://assets/images/cge.png" id="3_bfnnu"]
+[ext_resource type="Texture2D" uid="uid://cxjnrrgn5wcuu" path="res://assets/images/radiation_warning.png" id="4_3vksr"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_2ptko"]
 height = 5.0
@@ -31,3 +32,7 @@ texture_albedo = ExtResource("2_3vksr")
 transform = Transform3D(0.70710677, 0.70710677, -3.090862e-08, 0, -4.371139e-08, -1, -0.70710677, 0.70710677, -3.090862e-08, 1.4045949, -0.075692415, 1.8374727)
 size = Vector3(1.2626953, 3.4189453, 1.1954193)
 texture_albedo = ExtResource("3_bfnnu")
+
+[node name="Decal" type="Decal" parent="CollisionShape3D/MeshInstance3D"]
+transform = Transform3D(-1, -4.371139e-08, -1.6703743e-22, 7.301438e-30, 1.9106857e-15, -1, 4.371139e-08, -1, -1.9106855e-15, 0, 0.40000004, -1.8)
+texture_albedo = ExtResource("4_3vksr")

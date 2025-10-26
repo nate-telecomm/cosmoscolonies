@@ -1,7 +1,7 @@
 {
   "type": "engine",
   "mass": 200,
-  "thrust": 5000,
+  "thrust": 100000,
   "accel": 100,
   "desc": "Boring ahh engine"
 }

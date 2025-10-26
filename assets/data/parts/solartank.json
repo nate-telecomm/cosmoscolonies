@@ -1,0 +1,6 @@
+{
+  "type": "fuel_tank",
+  "mass": 200,
+  "fuel_capacity": 500,
+  "desc": "Infinite fuel!... techincally."
+}

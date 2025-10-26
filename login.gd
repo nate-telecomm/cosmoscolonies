@@ -30,6 +30,7 @@ func _on_button_button_down() -> void:
 
 	connected = true
 	status.text = "Connecting..."
+	GlobalData.websocket_url = websocket_url
 
 func _process(_delta):
 	if connected:
