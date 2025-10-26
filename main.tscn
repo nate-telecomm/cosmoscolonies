@@ -241,6 +241,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7847.32, 48.056, 3871.368)
 script = ExtResource("2_c1rg8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
 shape = SubResource("BoxShape3D_437nr")
 
 [node name="head" type="CollisionShape3D" parent="Player/CollisionShape3D"]
@@ -290,17 +291,16 @@ size = Vector3(0.349762, 0.169983, 0.153885)
 texture_albedo = ExtResource("6_ycdy4")
 
 [node name="firstperson" type="Camera3D" parent="Player"]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
 fov = 70.0
-near = 0.501
-far = 10000000.0
+far = 500000.0
 
 [node name="raycamera" type="SpringArm3D" parent="Player"]
-spring_length = 10.0
+spring_length = 0.4
 script = ExtResource("4_8hk4w")
 
 [node name="thirdperson" type="Camera3D" parent="Player/raycamera"]
-near = 0.501
-far = 10000000.0
+far = 500000.0
 
 [node name="ui" parent="Player" instance=ExtResource("7_pvk77")]
 

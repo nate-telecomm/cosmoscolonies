@@ -89,6 +89,8 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide() 
 
+	_handle_origin_shift()
+
 	if Input.is_action_just_pressed("camera"):
 		isFirst = !isFirst
 
@@ -120,3 +122,22 @@ func _physics_process(delta: float) -> void:
 			SPEED = RocketStats["thrust"]/25
 			ACCEL = RocketStats["accel"]/25
 			RemainingFuel = RocketStats["fuel_capacity"]/25
+
+func _handle_origin_shift():
+	var threshold: float = 5.0
+	
+	if global_position.length() > threshold:
+		var offset: Vector3 = global_position
+
+		for node in get_tree().get_nodes_in_group("movable"):
+			if node != self and node is Node3D:
+				node.global_position -= offset
+
+		for key in GlobalData.other_players.keys():
+			var other = GlobalData.other_players[key]
+			if other and other is Node3D:
+				other.global_position -= offset
+
+		global_position = Vector3.ZERO
+
+		print("Origin shifted by: ", offset)

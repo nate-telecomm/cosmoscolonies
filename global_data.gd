@@ -238,7 +238,7 @@ func PlayLocalSFX(option: String) -> void:
 	var sfx: AudioStreamPlayer = get_tree().current_scene.get_node("LocalSFX")
 	if sfx:
 		sfx.stop()
-	var stream: AudioStream = null
+	var stream: AudioStream
 	match option:
 		"sound1":
 			stream = load("res://assets/audio/sound1.ogg")
@@ -246,7 +246,7 @@ func PlayLocalSFX(option: String) -> void:
 			stream = load("res://assets/audio/sound2.ogg")
 		"sound3":
 			stream = load("res://assets/audio/sound3.ogg")
-	
-	sfx.stream = stream
+	if sfx:
+		sfx.stream = stream
+		sfx.play()
 	print(stream)
-	sfx.play()
