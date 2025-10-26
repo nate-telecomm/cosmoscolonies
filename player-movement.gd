@@ -117,6 +117,6 @@ func _physics_process(delta: float) -> void:
 			if json != "%%NULL%%":
 				RocketJSON = json
 				RocketStats = RocketService.build_rocket(RocketJSON, self)
-				SPEED = RocketStats["thrust"]
-				ACCEL = RocketStats["accel"]
+				SPEED = RocketStats["thrust"]/25
+				ACCEL = RocketStats["accel"]/25
 				RemainingFuel = RocketStats["fuel_capacity"]

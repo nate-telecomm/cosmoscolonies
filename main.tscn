@@ -89,8 +89,8 @@ collision_bounce = 1.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_tioca"]
 material = ExtResource("11_1hv5g")
-radius = 100.0
-height = 200.0
+radius = 4.0
+height = 8.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_q3pfq"]
 emission_shape = 6
@@ -114,7 +114,7 @@ turbulence_noise_strength = 20.0
 [sub_resource type="BoxMesh" id="BoxMesh_pjw6n"]
 lightmap_size_hint = Vector2i(5504, 15006)
 material = ExtResource("11_1hv5g")
-size = Vector3(10000, 10000, 100)
+size = Vector3(400, 400, 4)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_n82qi"]
 
@@ -150,8 +150,8 @@ distance_fade_max_distance = 4096.0
 
 [sub_resource type="TorusMesh" id="TorusMesh_rvnmw"]
 material = SubResource("StandardMaterial3D_mrrbt")
-inner_radius = 400000.0
-outer_radius = 406000.0
+inner_radius = 16000.0
+outer_radius = 16240.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mrtj2"]
 
@@ -197,8 +197,8 @@ emission = Color(1, 1, 1, 1)
 
 [sub_resource type="TorusMesh" id="TorusMesh_p8mue"]
 material = SubResource("StandardMaterial3D_27lue")
-inner_radius = 350000.0
-outer_radius = 351000.0
+inner_radius = 14000.0
+outer_radius = 14040.0
 rings = 128
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_c8sgi"]
@@ -217,14 +217,14 @@ albedo_texture = ExtResource("9_bknev")
 
 [sub_resource type="BoxMesh" id="BoxMesh_quakw"]
 material = SubResource("StandardMaterial3D_firqu")
-size = Vector3(60, 60, 1)
+size = Vector3(2.4, 2.4, 0.04)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y4h7h"]
 albedo_texture = ExtResource("9_bknev")
 
 [sub_resource type="BoxMesh" id="BoxMesh_7w6dp"]
 material = SubResource("StandardMaterial3D_y4h7h")
-size = Vector3(50, 50, 50)
+size = Vector3(2, 2, 2)
 
 [node name="Space" type="Node3D"]
 script = ExtResource("1_kvpof")
@@ -237,6 +237,7 @@ volume_db = 2.36
 environment = ExtResource("2_oxsde")
 
 [node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7847.32, 48.056, 3871.368)
 script = ExtResource("2_c1rg8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
@@ -317,7 +318,7 @@ stretch_mode = 5
 [node name="chat" parent="Player" instance=ExtResource("8_dg77c")]
 
 [node name="Bartholemew" type="StaticBody3D" parent="."]
-transform = Transform3D(400002, 0, 0, 0, 400002, 0, 0, 0, 400002, -86171, 324442, -701093)
+transform = Transform3D(16000.08, 0, 0, 0, 16000.08, 0, 0, 0, 16000.08, -3446.84, 12977.68, -28043.72)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bartholemew"]
 shape = SubResource("SphereShape3D_k31gl")
@@ -344,10 +345,10 @@ omni_attenuation = -0.152
 omni_shadow_mode = 0
 
 [node name="Bob" type="StaticBody3D" parent="." groups=["celestialbodies"]]
-transform = Transform3D(0.496967, 0.808545, -0.315083, -0.715592, 0.176456, -0.675862, -0.490866, 0.561354, 0.666283, 394748, 853317, -764305)
+transform = Transform3D(0.496967, 0.808545, -0.315083, -0.715592, 0.176456, -0.675862, -0.490866, 0.561354, 0.666283, 15789.92, 34132.68, -30572.2)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bob"]
-transform = Transform3D(10000, 0, 0, 0, 10000, 0, 0, 0, 10000, 0, 0, 0)
+transform = Transform3D(400, 0, 0, 0, 400, 0, 0, 0, 400, 0, 0, 0)
 shape = SubResource("SphereShape3D_lg2s1")
 
 [node name="void" type="MeshInstance3D" parent="Bob/CollisionShape3D"]
@@ -375,7 +376,7 @@ process_material = SubResource("ParticleProcessMaterial_q3pfq")
 draw_pass_1 = SubResource("BoxMesh_pjw6n")
 
 [node name="Maybe" type="StaticBody3D" parent="." groups=["celestialbodies"]]
-transform = Transform3D(20929.043, 252405.17, 431107.44, -104291.83, 424185.63, -243289.5, -488554.16, -79738.32, 70403.19, -616997, -14281.8, 1075892)
+transform = Transform3D(837.16174, 10096.205, 17244.297, -4171.673, 16967.426, -9731.579, -19542.164, -3189.5334, 2816.1274, -24679.88, -571.272, 43035.68)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Maybe"]
 shape = SubResource("SphereShape3D_n82qi")
@@ -397,7 +398,7 @@ direction = Vector3(0, 0, 0)
 gravity = Vector3(0, 0, 0)
 
 [node name="Umo" type="StaticBody3D" parent="." groups=["celestialbodies"]]
-transform = Transform3D(100000, 0, 0, 0, 100000, 0, 0, 0, 100000, -101166, 2997374, -528587)
+transform = Transform3D(4000, 0, 0, 0, 4000, 0, 0, 0, 4000, -4046.64, 119894.96, -21143.48)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Umo"]
 shape = SubResource("SphereShape3D_mrtj2")
@@ -413,7 +414,7 @@ script = ExtResource("7_f7adk")
 shape = SubResource("SphereShape3D_8ggpk")
 
 [node name="James" type="StaticBody3D" parent="." groups=["celestialbodies"]]
-transform = Transform3D(400002, 0, 0, 0, 400002, 0, 0, 0, 400002, 2440559.3, 0, -2224067.7)
+transform = Transform3D(16000.08, 0, 0, 0, 16000.08, 0, 0, 0, 16000.08, 97622.37, 0, -88962.71)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="James"]
 shape = SubResource("SphereShape3D_a8vxh")
@@ -435,7 +436,7 @@ script = ExtResource("7_f7adk")
 shape = SubResource("SphereShape3D_c8sgi")
 
 [node name="Plnet" type="StaticBody3D" parent="." groups=["celestialbodies"]]
-transform = Transform3D(300, 0, 0, 0, 300, 0, 0, 0, 300, -269548, -19021.6, 49469.9)
+transform = Transform3D(12, 0, 0, 0, 12, 0, 0, 0, 12, -10781.92, -760.864, 1978.796)
 script = ExtResource("15_2cqfq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Plnet"]
