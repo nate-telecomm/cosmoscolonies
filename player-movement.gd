@@ -34,6 +34,10 @@ func _ready() -> void:
 	camera2 = $raycamera/thirdperson
 
 func _physics_process(delta: float) -> void:
+	var yaw_input: float = 0.0
+	var pitch_input: float = 0.0
+	var qe_input: float = 0.0
+	var input_dir: Vector3 = Vector3.ZERO
 	if isInRocket() and _rocket_Engine() != null:
 		_rocket_Engine().get_node("Fire").emitting = false
 	if isFirst:
@@ -47,16 +51,12 @@ func _physics_process(delta: float) -> void:
 			camera1.fov = 1
 		else:
 			camera1.fov = 70
-		var input_dir: Vector3 = Vector3.ZERO
 		if Input.is_action_pressed("throttle"):
 			if RemainingFuel > 0.0:
 				input_dir -= transform.basis.z
 				if isInRocket() and _rocket_Engine() != null:
 					_rocket_Engine().get_node("Fire").emitting = true
 				RemainingFuel -= SPEED/10000
-		var yaw_input: float = 0.0
-		var pitch_input: float = 0.0
-		var qe_input: float = 0.0
 
 		if Input.is_action_pressed("q"):
 			qe_input += 1.0
@@ -70,39 +70,39 @@ func _physics_process(delta: float) -> void:
 			pitch_input += 1.0
 		if Input.is_action_pressed("forward"):
 			pitch_input -= 1.0
-		if pitch_input != 0.0:
-			transform.basis = transform.basis.rotated(transform.basis.x, pitch_input * ROT_SPEED * delta)
-		if yaw_input != 0.0:
-			transform.basis = transform.basis.rotated(transform.basis.y, yaw_input * ROT_SPEED * delta)
-		if qe_input != 0.0:
-			transform.basis = transform.basis.rotated(transform.basis.z, qe_input * ROT_SPEED * delta)
+	if pitch_input != 0.0:
+		transform.basis = transform.basis.rotated(transform.basis.x, pitch_input * ROT_SPEED * delta)
+	if yaw_input != 0.0:
+		transform.basis = transform.basis.rotated(transform.basis.y, yaw_input * ROT_SPEED * delta)
+	if qe_input != 0.0:
+		transform.basis = transform.basis.rotated(transform.basis.z, qe_input * ROT_SPEED * delta)
 
-		var desired_velocity = Vector3.ZERO
-		if input_dir.length_squared() > 0.0001:
-			desired_velocity = input_dir.normalized() * SPEED
-			velocity = velocity.move_toward(desired_velocity, ACCEL * delta)
+	var desired_velocity = Vector3.ZERO
+	if input_dir.length_squared() > 0.0001:
+		desired_velocity = input_dir.normalized() * SPEED
+		velocity = velocity.move_toward(desired_velocity, ACCEL * delta)
 
-		if get_tree().current_scene.name != "Space":
-			velocity.y -= gravity_strength * delta
-		else:
-			pass
+	if get_tree().current_scene.name != "Space":
+		velocity.y -= gravity_strength * delta
+	else:
+		pass
 
-		move_and_slide() 
+	move_and_slide() 
 
-		if Input.is_action_just_pressed("camera"):
-			isFirst = !isFirst
+	if Input.is_action_just_pressed("camera"):
+		isFirst = !isFirst
 
-		if Input.is_action_just_pressed("menu"):
-			var obj: String = await PopupService.prompt_input("", "Enter object")
-			if obj != "%%NULL%%":
-				if obj.begins_with("player:"):
-					for player_node in GlobalData.other_players:
-						if GlobalData.other_players[player_node].name == obj.trim_prefix("player:"):
-							object = GlobalData.other_players[player_node]
-				else:
-					object = get_tree().current_scene.get_node(obj)
+	if Input.is_action_just_pressed("menu") && !PopupService.IsPopup:
+		var obj: String = await PopupService.prompt_input("", "Enter object")
+		if obj != "%%NULL%%":
+			if obj.begins_with("player:"):
+				for player_node in GlobalData.other_players:
+					if GlobalData.other_players[player_node].name == obj.trim_prefix("player:"):
+						object = GlobalData.other_players[player_node]
 			else:
-				object = null
+				object = get_tree().current_scene.get_node(obj)
+		else:
+			object = null
 
 		var camera := get_viewport().get_camera_3d()
 		if object == null or camera.is_position_behind(object.global_transform.origin):
@@ -112,11 +112,11 @@ func _physics_process(delta: float) -> void:
 			var screen_pos: Vector2 = camera.unproject_position(object.global_transform.origin)
 			Marker.position = screen_pos
 
-		if Input.is_action_just_pressed("menu2"):
-			var json: String = await PopupService.prompt_input("", "Enter rocket JSON")
-			if json != "%%NULL%%":
-				RocketJSON = json
-				RocketStats = RocketService.build_rocket(RocketJSON, self)
-				SPEED = RocketStats["thrust"]/25
-				ACCEL = RocketStats["accel"]/25
-				RemainingFuel = RocketStats["fuel_capacity"]/25
+	if Input.is_action_just_pressed("menu2") && !PopupService.IsPopup:
+		var json: String = await PopupService.prompt_input("", "Enter rocket JSON")
+		if json != "%%NULL%%":
+			RocketJSON = json
+			RocketStats = RocketService.build_rocket(RocketJSON, self)
+			SPEED = RocketStats["thrust"]/25
+			ACCEL = RocketStats["accel"]/25
+			RemainingFuel = RocketStats["fuel_capacity"]/25

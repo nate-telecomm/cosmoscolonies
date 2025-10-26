@@ -1,7 +1,7 @@
 {
   "type": "engine",
   "mass": 200,
-  "thrust": 100000,
-  "accel": 500,
+  "thrust": 1000000,
+  "accel": 500000,
   "desc": "speed"
 }
