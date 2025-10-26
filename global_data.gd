@@ -202,7 +202,8 @@ func update_other_players(players_data):
 			var player_node = other_player_scene.instantiate()
 			player_node.name = username
 			root.add_child(player_node)
-			other_players[username] = {"node": player_node, "last_seen": now}
+			other_players[username] = {"node": player_node, "last_seen": now, "json": player_info["rocketjson"]}
+			RocketService.build_rocket(other_players[username]["json"], player_node)
 
 			if player_node.has_node("Label3D"):
 				player_node.get_node("Label3D").text = username
@@ -210,10 +211,12 @@ func update_other_players(players_data):
 		if other_players.has(username):
 			other_players[username]["last_seen"] = now
 			var player_node = other_players[username]["node"]
+			if other_players[username]["json"] != player_info["rocketjson"]:
+				other_players[username]["json"] = player_info["rocketjson"]
+				RocketService.build_rocket(other_players[username]["json"], player_node)
 			
 			player_node.global_transform.origin = pos
 			player_node.rotation = rot
-			RocketService.build_rocket(player_info["rocketjson"], player_node)
 			
 	var keys = other_players.keys()
 	for username in keys:

@@ -43,7 +43,7 @@ func _process(_delta):
 	if not camera:
 		return
 
-	var showmarkers = Input.is_action_pressed("t")
+	var showmarkers = Input.is_action_pressed("t") && !PopupService.IsPopup
 	selected = null
 
 	for i in range(tracked_objects.size()):

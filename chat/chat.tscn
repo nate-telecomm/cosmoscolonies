@@ -84,4 +84,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 8
 
+[connection signal="focus_entered" from="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Messager" to="." method="_on_messager_focus_entered"]
+[connection signal="focus_exited" from="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Messager" to="." method="_on_messager_focus_exited"]
 [connection signal="text_submitted" from="MarginContainer/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Messager" to="." method="_on_messager_text_submitted"]

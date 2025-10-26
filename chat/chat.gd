@@ -27,3 +27,9 @@ func update_chat_display() -> void:
 	chat_messages.text = text
 	
 	chat_messages.scroll_vertical = chat_messages.get_v_scroll_bar().max_value
+
+
+func _on_messager_focus_entered() -> void:
+	PopupService.IsPopup = true
+func _on_messager_focus_exited() -> void:
+	PopupService.IsPopup = false

@@ -313,9 +313,9 @@ texture = ExtResource("7_or7bv")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="chat" parent="Player" instance=ExtResource("8_dg77c")]
-
 [node name="mislHUD" parent="Player" instance=ExtResource("11_vivmo")]
+
+[node name="chat" parent="Player" instance=ExtResource("8_dg77c")]
 
 [node name="Bartholemew" type="StaticBody3D" parent="."]
 transform = Transform3D(400002, 0, 0, 0, 400002, 0, 0, 0, 400002, -86171, 324442, -701093)
