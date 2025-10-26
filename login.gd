@@ -22,7 +22,6 @@ var authenticated = false
 var waiting_for_credentials = false
 
 func _on_button_button_down() -> void:
-	websocket_url = "ws://" + address.text + ":53920/game"
 	var err = socket.connect_to_url(websocket_url)
 	if err != OK:
 		status.text = "Unable to connect\n" + str(err)
@@ -70,3 +69,6 @@ func _process(_delta):
 
 func _on_video_stream_player_finished() -> void:
 	video.visible = false
+
+func _on_address_text_changed(new_text: String) -> void:
+	websocket_url = "ws://" + new_text + ":53920/game"

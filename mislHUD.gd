@@ -2,7 +2,7 @@ extends Control
 
 signal target_acquired(target_object)
 
-@export var marker_scene: PackedScene = preload("res://mislHUDMarker.tscn")
+@export var marker_scene: PackedScene = preload("uid://b680yv3burlwa")
 @onready var camera: Camera3D = get_viewport().get_camera_3d()
 
 var tracked_objects: Array = []
@@ -21,6 +21,8 @@ var progress_duration: float = 2.5
 var original_size: Vector2
 var target_object: Node
 
+var is_progressing: bool = false
+
 func _ready():
 	await get_tree().process_frame
 
@@ -33,8 +35,6 @@ func _ready():
 		markers.append(marker)
 		base_sizes.append(marker.size)
 
-var progress_completed: bool = false
-
 func _process(_delta):
 	camera = get_viewport().get_camera_3d()
 	if not camera:
@@ -42,7 +42,6 @@ func _process(_delta):
 
 	var showmarkers = Input.is_action_pressed("t")
 	selected = null
-	progress_completed = false
 
 	for i in range(tracked_objects.size()):
 		var obj = tracked_objects[i]
@@ -73,31 +72,29 @@ func _process(_delta):
 
 		marker.size = marker.size.lerp(target_size, 0.1)
 
-	if selected and Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE) and not progress_completed:
-		if not progress_marker:
+	if selected and Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE):
+		if not is_progressing:
 			progress_marker = marker_scene.instantiate()
 			progress_marker.position = selected.position
 			progress_marker.size = selected.size
 			add_child(progress_marker)
 			original_size = progress_marker.size
 			progress_timer = 0.0
+			is_progressing = true
+		else:
+			progress_timer += _delta
+			var t = progress_timer / progress_duration
+			var new_size = original_size.lerp(Vector2.ZERO, t)
+			var delta_size = original_size - new_size
+			progress_marker.position = selected.position + (delta_size / 2)
+			progress_marker.size = new_size
 	else:
-		if progress_marker:
-			progress_marker.queue_free()
-			progress_marker = null
+		if is_progressing:
+			if selected and progress_timer >= 0.0:
+				emit_signal("target_acquired", target_object)
+				print("Misl fired at object: ", target_object)
+			if progress_marker:
+				progress_marker.queue_free()
+				progress_marker = null
 			progress_timer = 0.0
-
-	if progress_marker:
-		progress_timer += _delta
-		var t = progress_timer / progress_duration
-		var new_size = original_size.lerp(Vector2.ZERO, t)
-		var delta_size = original_size - new_size
-		progress_marker.position = selected.position + (delta_size / 2)
-		progress_marker.size = new_size
-
-		if progress_timer >= progress_duration:
-			emit_signal("target_acquired", target_object)
-			progress_marker.queue_free()
-			progress_marker = null
-			progress_timer = 0.0
-			progress_completed = true
+			is_progressing = false

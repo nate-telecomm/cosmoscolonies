@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://dlf5pxog21wtm"]
+[gd_scene load_steps=69 format=3 uid="uid://dlf5pxog21wtm"]
 
 [ext_resource type="Script" uid="uid://cnh78i8vay3mg" path="res://server_int.gd" id="1_kvpof"]
 [ext_resource type="Script" uid="uid://dxql26pflbtdh" path="res://player-movement.gd" id="2_c1rg8"]
@@ -15,6 +15,7 @@
 [ext_resource type="Material" uid="uid://b27g25vf5s3yf" path="res://assets/materials/plasma.tres" id="11_1hv5g"]
 [ext_resource type="PackedScene" uid="uid://brruuobyqd8mb" path="res://mislHUD.tscn" id="11_vivmo"]
 [ext_resource type="Material" uid="uid://d3tgfng0d5sy3" path="res://assets/materials/hot.tres" id="11_w48qg"]
+[ext_resource type="Script" uid="uid://d0axqtkilkhcj" path="res://plnet.gd" id="15_2cqfq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_437nr"]
 
@@ -436,6 +437,7 @@ shape = SubResource("SphereShape3D_c8sgi")
 
 [node name="Plnet" type="StaticBody3D" parent="." groups=["celestialbodies"]]
 transform = Transform3D(300, 0, 0, 0, 300, 0, 0, 0, 300, -269548, -19021.6, 49469.9)
+script = ExtResource("15_2cqfq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Plnet"]
 shape = SubResource("SphereShape3D_1ov3f")
