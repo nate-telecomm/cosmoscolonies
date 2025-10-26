@@ -1,5 +1,7 @@
 extends Control
 
+signal target_acquired(target_object)
+
 @export var marker_scene: PackedScene = preload("res://mislHUDMarker.tscn")
 @onready var camera: Camera3D = get_viewport().get_camera_3d()
 
@@ -13,6 +15,12 @@ var markers: Array = []
 
 var base_sizes: Array = []
 
+var progress_marker: Control = null
+var progress_timer: float = 0.0
+var progress_duration: float = 2.5
+var original_size: Vector2
+var target_object: Node
+
 func _ready():
 	await get_tree().process_frame
 
@@ -24,7 +32,6 @@ func _ready():
 		add_child(marker)
 		markers.append(marker)
 		base_sizes.append(marker.size)
-		print("Added marker for:", obj.name)
 
 func _process(_delta):
 	camera = get_viewport().get_camera_3d()
@@ -59,5 +66,32 @@ func _process(_delta):
 		if angle < look_at_angle_threshold:
 			target_size += Vector2(look_at_scale_increase, look_at_scale_increase)
 			selected = marker
+			target_object = obj
 
 		marker.size = marker.size.lerp(target_size, 0.1)
+
+	if selected and Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE):
+		if not progress_marker:
+			progress_marker = marker_scene.instantiate()
+			progress_marker.position = selected.position
+			progress_marker.size = selected.size
+			add_child(progress_marker)
+			original_size = progress_marker.size
+			progress_timer = 0.0
+	else:
+		if progress_marker:
+			progress_marker.queue_free()
+			progress_marker = null
+			progress_timer = 0.0
+
+	if progress_marker:
+		progress_timer += _delta
+		var t = progress_timer / progress_duration
+
+		progress_marker.size = original_size.lerp(Vector2.ZERO, t)
+
+		if progress_timer >= progress_duration:
+			emit_signal("target_acquired", target_object)
+			progress_marker.queue_free()
+			progress_marker = null
+			progress_timer = 0.0
