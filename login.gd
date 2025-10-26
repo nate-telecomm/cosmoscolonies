@@ -26,8 +26,6 @@ func _on_address_text_changed(new_text: String) -> void:
 	GlobalData.change_websocket_address(new_text)
 
 func _on_button_button_down() -> void:
-	websocket_url = address.text
-	GlobalData.change_websocket_address(address.text)
 	var err = socket.connect_to_url(websocket_url)
 	if err != OK:
 		status.text = "Unable to connect\n" + str(err)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://dlf5pxog21wtm"]
+[gd_scene load_steps=69 format=3 uid="uid://dlf5pxog21wtm"]
 
 [ext_resource type="Script" uid="uid://cnh78i8vay3mg" path="res://server_int.gd" id="1_kvpof"]
 [ext_resource type="Script" uid="uid://dxql26pflbtdh" path="res://player-movement.gd" id="2_c1rg8"]
@@ -13,7 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://cigaeu1ed7nga" path="res://chat/chat.tscn" id="8_dg77c"]
 [ext_resource type="Texture2D" uid="uid://cp6w2aduq5wf1" path="res://assets/images/plne.png" id="9_bknev"]
 [ext_resource type="Material" uid="uid://b27g25vf5s3yf" path="res://assets/materials/plasma.tres" id="11_1hv5g"]
+[ext_resource type="Script" uid="uid://ux4a8dwuw0bk" path="res://mislHUD.gd" id="11_2cqfq"]
 [ext_resource type="Material" uid="uid://d3tgfng0d5sy3" path="res://assets/materials/hot.tres" id="11_w48qg"]
+[ext_resource type="Script" uid="uid://d0axqtkilkhcj" path="res://plnet.gd" id="15_2cqfq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_437nr"]
 
@@ -313,6 +315,17 @@ stretch_mode = 5
 
 [node name="chat" parent="Player" instance=ExtResource("8_dg77c")]
 
+[node name="CanvasLayer2" type="CanvasLayer" parent="Player"]
+
+[node name="mislHUD2" type="Control" parent="Player/CanvasLayer2"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_2cqfq")
+
 [node name="Bartholemew" type="StaticBody3D" parent="."]
 transform = Transform3D(400002, 0, 0, 0, 400002, 0, 0, 0, 400002, -86171, 324442, -701093)
 
@@ -433,6 +446,7 @@ shape = SubResource("SphereShape3D_c8sgi")
 
 [node name="Plnet" type="StaticBody3D" parent="." groups=["celestialbodies"]]
 transform = Transform3D(300, 0, 0, 0, 300, 0, 0, 0, 300, -269548, -19021.6, 49469.9)
+script = ExtResource("15_2cqfq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Plnet"]
 shape = SubResource("SphereShape3D_1ov3f")

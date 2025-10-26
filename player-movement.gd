@@ -29,6 +29,7 @@ func _rocket_Engine() -> StaticBody3D:
 func _ready() -> void:
 	camera1 = $firstperson
 	camera2 = $raycamera/thirdperson
+	add_to_group("marker_target")
 
 func _physics_process(delta: float) -> void:
 	if isInRocket() and _rocket_Engine() != null:
@@ -100,7 +101,7 @@ func _physics_process(delta: float) -> void:
 					object = get_tree().current_scene.get_node(obj)
 			else:
 				object = null
-
+		
 		var camera := get_viewport().get_camera_3d()
 		if object == null or camera.is_position_behind(object.global_transform.origin):
 			Marker.visible = false
@@ -108,7 +109,7 @@ func _physics_process(delta: float) -> void:
 			Marker.visible = true
 			var screen_pos: Vector2 = camera.unproject_position(object.global_transform.origin)
 			Marker.position = screen_pos
-			
+		
 		if Input.is_action_just_pressed("menu2"):
 			var json: String = await PopupService.prompt_input("", "Enter rocket JSON")
 			RocketStats = RocketService.build_rocket(json, self)
