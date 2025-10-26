@@ -1,41 +1,63 @@
 extends Control
 
-@export var marker_scene: PackedScene = preload("res://mislHUD.tscn")
+@export var marker_scene: PackedScene = preload("res://mislHUDMarker.tscn")
 @onready var camera: Camera3D = get_viewport().get_camera_3d()
 
 var tracked_objects: Array = []
+var markers: Array = []
+
+@export var look_at_scale_increase: float = 15.0
+@export var look_at_angle_threshold: float = 5.0
+
+@export var selected: Node
+
+var base_sizes: Array = []
 
 func _ready():
-	# Objects that should have markers
+	await get_tree().process_frame
+
 	tracked_objects = get_tree().get_nodes_in_group("marker_target")
+
 	for obj in tracked_objects:
 		var marker = marker_scene.instantiate()
 		marker.visible = false
 		add_child(marker)
+		markers.append(marker)
+		base_sizes.append(marker.size)
+		print("Added marker for:", obj.name)
 
-func _process(delta):
+func _process(_delta):
+	camera = get_viewport().get_camera_3d()
 	if not camera:
-		camera = get_viewport().get_camera_3d()
-		if not camera:
-			return
+		return
 
-	var show = Input.is_action_pressed("t")
+	var showmarkers = Input.is_action_pressed("t")
+	selected = null
 
 	for i in range(tracked_objects.size()):
 		var obj = tracked_objects[i]
-		if i >= get_child_count():
-			return
+		var marker = markers[i]
+		marker.visible = showmarkers
 
-		var marker = get_child(i)
-		marker.visible = show
-
-		if not show:
+		if not showmarkers:
 			continue
 
-		var pos_3d = obj.global_position
+		var pos_3d = obj.global_position + Vector3(0, 1.5, 0)
 		if camera.is_position_behind(pos_3d):
 			marker.visible = false
 			continue
 
 		var pos_2d = camera.unproject_position(pos_3d)
-		marker.position = pos_2d - marker.size / 2
+		marker.position = pos_2d - (marker.size / 2)
+
+		var cam_forward = -camera.global_transform.basis.z
+		var to_obj = (pos_3d - camera.global_transform.origin).normalized()
+		var angle = rad_to_deg(acos(cam_forward.dot(to_obj)))
+
+		var target_size = base_sizes[i]
+
+		if angle < look_at_angle_threshold:
+			target_size += Vector2(look_at_scale_increase, look_at_scale_increase)
+			selected = marker
+
+		marker.size = marker.size.lerp(target_size, 0.1)
