@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://dlf5pxog21wtm"]
+[gd_scene load_steps=80 format=3 uid="uid://dlf5pxog21wtm"]
 
 [ext_resource type="Script" uid="uid://cnh78i8vay3mg" path="res://server_int.gd" id="1_kvpof"]
 [ext_resource type="Script" uid="uid://dxql26pflbtdh" path="res://player-movement.gd" id="2_c1rg8"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://brruuobyqd8mb" path="res://mislHUD.tscn" id="11_vivmo"]
 [ext_resource type="Material" uid="uid://d3tgfng0d5sy3" path="res://assets/materials/hot.tres" id="11_w48qg"]
 [ext_resource type="Script" uid="uid://d0axqtkilkhcj" path="res://plnet.gd" id="15_2cqfq"]
+[ext_resource type="Material" uid="uid://dasxhcmah5kmf" path="res://assets/materials/smog.tres" id="17_074og"]
 [ext_resource type="Texture2D" uid="uid://clhppvu53mkjh" path="res://assets/materials/why.tres" id="17_yaehf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_437nr"]
@@ -237,6 +238,11 @@ albedo_texture = SubResource("NoiseTexture2D_cegan")
 
 [sub_resource type="SphereMesh" id="SphereMesh_getpj"]
 material = SubResource("StandardMaterial3D_82xsv")
+
+[sub_resource type="SphereMesh" id="SphereMesh_82xsv"]
+material = ExtResource("17_074og")
+radius = 10.0
+height = 20.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_yaehf"]
 
@@ -509,8 +515,9 @@ mesh = SubResource("SphereMesh_getpj")
 [node name="CPUParticles3D" type="CPUParticles3D" parent="Fid"]
 transform = Transform3D(0.90630764, -0.42261827, 0, 0.39713126, 0.8516506, -0.3420201, 0.14454395, 0.30997542, 0.93969244, 0, 0.3958969, 0.23866272)
 amount = 300
-lifetime = 0.1
-speed_scale = 0.2
+lifetime = 0.5
+speed_scale = 0.1
+mesh = SubResource("SphereMesh_82xsv")
 direction = Vector3(0, 1, 0)
 spread = 15.8
 gravity = Vector3(0, 0, 0)
