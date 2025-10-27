@@ -246,6 +246,8 @@ func PlayLocalSFX(option: String) -> void:
 			stream = load("res://assets/audio/sound2.ogg")
 		"sound3":
 			stream = load("res://assets/audio/sound3.ogg")
+		"the":
+			stream = load("res://assets/audio/the.ogg")
 	if sfx:
 		sfx.stream = stream
 		sfx.play()

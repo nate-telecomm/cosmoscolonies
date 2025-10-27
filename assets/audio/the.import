@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://n77e2w68h8wn"
+path="res://.godot/imported/nate higgers.ogg-293361a2ebc5fdcb27d97cb2a9d50dec.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/nate higgers.ogg"
+dest_files=["res://.godot/imported/nate higgers.ogg-293361a2ebc5fdcb27d97cb2a9d50dec.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

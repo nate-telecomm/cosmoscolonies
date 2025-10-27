@@ -93,6 +93,9 @@ func _physics_process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("camera"):
 		isFirst = !isFirst
+	
+	if Input.is_action_just_pressed("1"):
+		GlobalData.PlayLocalSFX("the")
 
 	if Input.is_action_just_pressed("menu") && !PopupService.IsPopup:
 		var obj: String = await PopupService.prompt_input("", "Enter object")
