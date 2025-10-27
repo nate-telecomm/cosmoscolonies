@@ -98,6 +98,9 @@ func _physics_process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("camera"):
 		isFirst = !isFirst
+	
+	if Input.is_action_just_pressed("1"):
+		GlobalData.PlayLocalSFX("the")
 
 	if Input.is_action_just_pressed("menu") && !PopupService.IsPopup:
 		var obj: String = await PopupService.prompt_input("", "Enter object")
@@ -124,9 +127,9 @@ func _physics_process(delta: float) -> void:
 		if json != "%%NULL%%":
 			RocketJSON = json
 			RocketStats = RocketService.build_rocket(RocketJSON, self)
-			SPEED = RocketStats["thrust"]/25
-			ACCEL = RocketStats["accel"]/25
-			RemainingFuel = RocketStats["fuel_capacity"]/25
+			SPEED = RocketStats["thrust"]/100000
+			ACCEL = RocketStats["accel"]/1000000
+			RemainingFuel = RocketStats["fuel_capacity"]/100000
 
 func _handle_origin_shift():
 	var threshold: float = 5.0
