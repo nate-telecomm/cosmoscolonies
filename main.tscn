@@ -64,10 +64,9 @@ size = Vector3(0.2, 0.2, 0.4)
 [sub_resource type="SphereMesh" id="SphereMesh_r1k35"]
 material = ExtResource("11_w48qg")
 
-[sub_resource type="SphereMesh" id="SphereMesh_2cqfq"]
-material = ExtResource("11_w48qg")
-radius = 200.0
-height = 400.0
+[sub_resource type="BoxMesh" id="BoxMesh_074og"]
+material = ExtResource("4_815e3")
+size = Vector3(400, 400, 400)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_lg2s1"]
 
@@ -373,16 +372,13 @@ omni_attenuation = -0.152
 omni_shadow_mode = 0
 
 [node name="CPUParticles3D" type="CPUParticles3D" parent="Bartholemew"]
-amount = 10
-lifetime = 20.0
-explosiveness = 1.0
-randomness = 1.0
-lifetime_randomness = 1.0
-mesh = SubResource("SphereMesh_2cqfq")
+amount = 900
+lifetime = 0.01
+mesh = SubResource("BoxMesh_074og")
+emission_shape = 2
+emission_sphere_radius = 1.0
 direction = Vector3(0, 0, 0)
-spread = 180.0
 gravity = Vector3(0, 0, 0)
-initial_velocity_max = 1.45
 
 [node name="Bob" type="StaticBody3D" parent="." groups=["celestialbodies"]]
 transform = Transform3D(0.496967, 0.808545, -0.315083, -0.715592, 0.176456, -0.675862, -0.490866, 0.561354, 0.666283, 15789.92, 34132.68, -30572.2)
