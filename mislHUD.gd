@@ -21,6 +21,8 @@ var progress_duration: float = 2.5
 var original_size: Vector2
 var target_object: Node
 var progress_completed: bool
+var beep_timer := 0.0
+var beep_interval := 0.5
 
 var previous_selection
 
@@ -78,7 +80,6 @@ func _process(_delta):
 
 	if selected and Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE):
 		if not is_progressing:
-
 			progress_marker = marker_scene.instantiate()
 			progress_marker.position = selected.position
 			progress_marker.size = selected.size
@@ -89,11 +90,25 @@ func _process(_delta):
 			progress_completed = false
 		else:
 			progress_timer += _delta
+			beep_timer += _delta
+
 			var t = progress_timer / progress_duration
 			var new_size = original_size.lerp(Vector2.ZERO, t)
 			var delta_size = original_size - new_size
 			progress_marker.position = selected.position + (delta_size / 2)
 			progress_marker.size = new_size
+
+			# adjust interval dynamically
+			if progress_timer < 1.5:
+				beep_interval = 0.5
+			elif progress_timer < 2.5:
+				beep_interval = 0.25
+			else:
+				beep_interval = 0.1
+
+			if beep_timer >= beep_interval:
+				GlobalData.PlayLocalSFX("beep")
+				beep_timer = 0.0
 
 			if progress_timer >= progress_duration and not progress_completed:
 				var label = selected.get_node_or_null("RichTextLabel")
@@ -102,15 +117,16 @@ func _process(_delta):
 				progress_completed = true
 
 	else:
-
 		if is_progressing:
 			if progress_marker:
+				beep_timer = 0.0
 				progress_marker.queue_free()
 				progress_marker = null
 
 			if progress_completed and selected:
 				emit_signal("target_acquired", target_object)
 				print("Misl fired at object: ", target_object)
+
 
 			if previous_selection:
 				var label = previous_selection.get_node_or_null("RichTextLabel")
