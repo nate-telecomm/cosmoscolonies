@@ -13,6 +13,7 @@ var EnterBox: LineEdit
 var SendButton: RichTextLabel
 var RocketStats: Dictionary
 @export var RocketJSON: String
+var WarnedAboutFuel: bool = false
 
 var SPEED: float = 100.0
 var ACCEL: float = 6000.0
@@ -53,10 +54,14 @@ func _physics_process(delta: float) -> void:
 			camera1.fov = 70
 		if Input.is_action_pressed("throttle"):
 			if RemainingFuel > 0.0:
+				WarnedAboutFuel = false
 				input_dir -= transform.basis.z
 				if isInRocket() and _rocket_Engine() != null:
 					_rocket_Engine().get_node("Fire").emitting = true
 				RemainingFuel -= SPEED/10000
+			else:
+				if !WarnedAboutFuel:
+					WarnedAboutFuel = true
 
 		if Input.is_action_pressed("q"):
 			qe_input += 1.0

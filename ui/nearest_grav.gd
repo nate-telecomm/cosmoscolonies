@@ -9,7 +9,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	planet = GlobalData.get_nearest_gravity(player)
 	if planet != null:
-		text = "NEAREST: " + planet.name
+		text = "DUOLONGO: " + planet.name
 	
 	else:
-		text = "NEAREST: SPACE"
+		text = "DUOLONGO: SPACE"

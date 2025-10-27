@@ -46,7 +46,7 @@ func _change_scene(player: CharacterBody3D) -> void:
 
 
 	new_scene.add_child(player)
-	player.position = Vector3(0, 50, 0)
+	player.position = Vector3(0, 5000, 0)
 	player.velocity = Vector3.ZERO
 
 	# Free old scene

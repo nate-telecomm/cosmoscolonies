@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://dlf5pxog21wtm"]
+[gd_scene load_steps=78 format=3 uid="uid://dlf5pxog21wtm"]
 
 [ext_resource type="Script" uid="uid://cnh78i8vay3mg" path="res://server_int.gd" id="1_kvpof"]
 [ext_resource type="Script" uid="uid://dxql26pflbtdh" path="res://player-movement.gd" id="2_c1rg8"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://brruuobyqd8mb" path="res://mislHUD.tscn" id="11_vivmo"]
 [ext_resource type="Material" uid="uid://d3tgfng0d5sy3" path="res://assets/materials/hot.tres" id="11_w48qg"]
 [ext_resource type="Script" uid="uid://d0axqtkilkhcj" path="res://plnet.gd" id="15_2cqfq"]
+[ext_resource type="Texture2D" uid="uid://clhppvu53mkjh" path="res://assets/materials/why.tres" id="17_yaehf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_437nr"]
 
@@ -61,6 +62,11 @@ size = Vector3(0.2, 0.2, 0.4)
 
 [sub_resource type="SphereMesh" id="SphereMesh_r1k35"]
 material = ExtResource("11_w48qg")
+
+[sub_resource type="SphereMesh" id="SphereMesh_2cqfq"]
+material = ExtResource("11_w48qg")
+radius = 200.0
+height = 400.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_lg2s1"]
 
@@ -208,6 +214,40 @@ albedo_texture = ExtResource("9_bknev")
 material = SubResource("StandardMaterial3D_y4h7h")
 size = Vector3(2, 2, 2)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_2cqfq"]
+
+[sub_resource type="Gradient" id="Gradient_yaehf"]
+offsets = PackedFloat32Array(0, 0.4496124, 1)
+colors = PackedColorArray(0.30809668, 0.16932607, 0.06498483, 1, 0.39000413, 0.35095245, 0.27498683, 1, 0.119860016, 0.10505182, 0.08704821, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_074og"]
+noise_type = 5
+seed = -239960720
+frequency = 0.0006
+fractal_type = 2
+fractal_lacunarity = 4.0
+fractal_gain = 3.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cegan"]
+noise = SubResource("FastNoiseLite_074og")
+color_ramp = SubResource("Gradient_yaehf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_82xsv"]
+albedo_texture = SubResource("NoiseTexture2D_cegan")
+
+[sub_resource type="SphereMesh" id="SphereMesh_getpj"]
+material = SubResource("StandardMaterial3D_82xsv")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_yaehf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_074og"]
+transparency = 1
+blend_mode = 1
+albedo_texture = ExtResource("17_yaehf")
+
+[sub_resource type="SphereMesh" id="SphereMesh_cegan"]
+material = SubResource("StandardMaterial3D_074og")
+
 [node name="Space" type="Node3D"]
 script = ExtResource("1_kvpof")
 
@@ -325,6 +365,18 @@ distance_fade_length = 2000000.0
 omni_range = 9.22337e+18
 omni_attenuation = -0.152
 omni_shadow_mode = 0
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="Bartholemew"]
+amount = 10
+lifetime = 20.0
+explosiveness = 1.0
+randomness = 1.0
+lifetime_randomness = 1.0
+mesh = SubResource("SphereMesh_2cqfq")
+direction = Vector3(0, 0, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_max = 1.45
 
 [node name="Bob" type="StaticBody3D" parent="." groups=["celestialbodies"]]
 transform = Transform3D(0.496967, 0.808545, -0.315083, -0.715592, 0.176456, -0.675862, -0.490866, 0.561354, 0.666283, 15789.92, 34132.68, -30572.2)
@@ -445,6 +497,37 @@ gravity = Vector3(0, 0, 0)
 initial_velocity_min = 5.0
 initial_velocity_max = 5.0
 
+[node name="Fid" type="StaticBody3D" parent="." groups=["celestialbodies"]]
+transform = Transform3D(1000, 0, 0, 0, 1000, 0, 0, 0, 1000, 172244.14, 116177.58, -91050.39)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Fid"]
+shape = SubResource("SphereShape3D_2cqfq")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Fid/CollisionShape3D"]
+mesh = SubResource("SphereMesh_getpj")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="Fid"]
+transform = Transform3D(0.90630764, -0.42261827, 0, 0.39713126, 0.8516506, -0.3420201, 0.14454395, 0.30997542, 0.93969244, 0, 0.3958969, 0.23866272)
+amount = 300
+lifetime = 0.1
+speed_scale = 0.2
+direction = Vector3(0, 1, 0)
+spread = 15.8
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.85
+initial_velocity_max = 0.85
+
+[node name="Area3D" type="Area3D" parent="Fid"]
+transform = Transform3D(1.01, 0, 0, 0, 1.01, 0, 0, 0, 1.01, 0, 0, 0)
+script = ExtResource("7_f7adk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Fid/Area3D"]
+shape = SubResource("SphereShape3D_yaehf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Fid/Area3D/CollisionShape3D"]
+mesh = SubResource("SphereMesh_cegan")
+
 [connection signal="area_entered" from="Umo/Atmosphere" to="Umo/Atmosphere" method="_on_area_entered"]
 [connection signal="body_entered" from="Umo/Atmosphere" to="Umo/Atmosphere" method="_on_body_entered"]
 [connection signal="body_entered" from="James/Area3D" to="James/Area3D" method="_on_body_entered"]
+[connection signal="body_entered" from="Fid/Area3D" to="Fid/Area3D" method="_on_body_entered"]
