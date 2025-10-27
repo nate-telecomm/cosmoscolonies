@@ -381,7 +381,7 @@ direction = Vector3(0, 0, 0)
 gravity = Vector3(0, 0, 0)
 
 [node name="Bob" type="StaticBody3D" parent="." groups=["celestialbodies"]]
-transform = Transform3D(0.496967, 0.808545, -0.315083, -0.715592, 0.176456, -0.675862, -0.490866, 0.561354, 0.666283, 15789.92, 34132.68, -30572.2)
+transform = Transform3D(0.496967, 0.808545, -0.315083, -0.715592, 0.176456, -0.675862, -0.490866, 0.561354, 0.666283, -154591.7, 34132.68, -159224.25)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Bob"]
 transform = Transform3D(400, 0, 0, 0, 400, 0, 0, 0, 400, 0, 0, 0)
@@ -407,7 +407,7 @@ process_material = SubResource("ParticleProcessMaterial_q3pfq")
 draw_pass_1 = SubResource("BoxMesh_pjw6n")
 
 [node name="Maybe" type="StaticBody3D" parent="." groups=["celestialbodies"]]
-transform = Transform3D(837.16174, 10096.205, 17244.297, -4171.673, 16967.426, -9731.579, -19542.164, -3189.5334, 2816.1274, -24679.88, -571.272, 43035.68)
+transform = Transform3D(837.16174, 10096.205, 17244.297, -4171.673, 16967.426, -9731.579, -19542.164, -3189.5334, 2816.1274, -24679.88, -364879.78, 43035.68)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Maybe"]
 shape = SubResource("SphereShape3D_n82qi")
@@ -429,7 +429,7 @@ direction = Vector3(0, 0, 0)
 gravity = Vector3(0, 0, 0)
 
 [node name="Umo" type="StaticBody3D" parent="." groups=["celestialbodies"]]
-transform = Transform3D(4000, 0, 0, 0, 4000, 0, 0, 0, 4000, -4046.64, 119894.96, -21143.48)
+transform = Transform3D(4000, 0, 0, 0, 4000, 0, 0, 0, 4000, -162149.39, 159146.81, -204248.87)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Umo"]
 shape = SubResource("SphereShape3D_mrtj2")
@@ -445,7 +445,7 @@ script = ExtResource("7_f7adk")
 shape = SubResource("SphereShape3D_8ggpk")
 
 [node name="James" type="StaticBody3D" parent="." groups=["celestialbodies"]]
-transform = Transform3D(16000.08, 0, 0, 0, 16000.08, 0, 0, 0, 16000.08, 97622.37, 0, -88962.71)
+transform = Transform3D(16000.08, 0, 0, 0, 16000.08, 0, 0, 0, 16000.08, 273400.3, 0, -88962.71)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="James"]
 shape = SubResource("SphereShape3D_a8vxh")
@@ -529,6 +529,9 @@ shape = SubResource("SphereShape3D_yaehf")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Fid/Area3D/CollisionShape3D"]
 mesh = SubResource("SphereMesh_cegan")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+volume_db = -9.005
 
 [connection signal="area_entered" from="Umo/Atmosphere" to="Umo/Atmosphere" method="_on_area_entered"]
 [connection signal="body_entered" from="Umo/Atmosphere" to="Umo/Atmosphere" method="_on_body_entered"]

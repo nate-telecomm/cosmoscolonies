@@ -31,6 +31,7 @@ func _rocket_Engine() -> StaticBody3D:
 	return get_node("Rocket").get_node("Engine")
 
 func _ready() -> void:
+	GlobalData.PlayLocalMusic("consumatesurvivor.caf")
 	camera1 = $firstperson
 	camera2 = $raycamera/thirdperson
 
