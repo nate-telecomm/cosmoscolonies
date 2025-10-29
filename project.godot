@@ -24,6 +24,7 @@ GlobalData="*res://global_data.gd"
 PopupService="*res://popupservice.gd"
 RocketService="*res://rocketservice.gd"
 Plne="*res://plne/plne.gd"
+MislHud="*res://mislHUD.gd"
 
 [editor]
 

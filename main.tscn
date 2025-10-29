@@ -260,7 +260,6 @@ script = ExtResource("1_kvpof")
 environment = ExtResource("2_oxsde")
 
 [node name="Player" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7847.32, 48.056, 3871.368)
 script = ExtResource("2_c1rg8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
