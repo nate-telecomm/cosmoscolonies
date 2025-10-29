@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://ca5ccsxm1fdhu"]
 
-[ext_resource type="Script" uid="uid://blbht4653f60p" path="res://mislProjectile.gd" id="1_i4eb8"]
+[ext_resource type="Script" uid="uid://ceofdp1dynw3v" path="res://mislProjectile.gd" id="1_i4eb8"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_k04dh"]
 height = 0.8

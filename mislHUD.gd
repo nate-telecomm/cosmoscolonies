@@ -7,6 +7,7 @@ signal target_acquired(target_object)
 
 var tracked_objects: Array = []
 var markers: Array = []
+var lockon_timer: float
 
 @export var look_at_scale_increase: float = 15.0
 @export var look_at_angle_threshold: float = 5.0
@@ -21,16 +22,13 @@ var progress_duration: float = 2.5
 var original_size: Vector2
 var target_object: Node
 var progress_completed: bool
-var beep_timer := 0.0
-var beep_interval := 0.5
 
 var previous_selection
-
 var is_progressing: bool = false
+var lock_sfx_player: AudioStreamPlayer = null
 
 func _ready():
 	await get_tree().process_frame
-
 	tracked_objects = get_tree().get_nodes_in_group("marker_target")
 
 	for obj in tracked_objects:
@@ -39,13 +37,12 @@ func _ready():
 		add_child(marker)
 		markers.append(marker)
 		base_sizes.append(marker.size)
-
-func _process(_delta):
+func _process(delta: float) -> void:
 	camera = get_viewport().get_camera_3d()
 	if not camera:
 		return
 
-	var showmarkers = Input.is_action_pressed("t") && !PopupService.IsPopup
+	var showmarkers = Input.is_action_pressed("t") and not PopupService.IsPopup
 	selected = null
 
 	for i in range(tracked_objects.size()):
@@ -86,11 +83,14 @@ func _process(_delta):
 			add_child(progress_marker)
 			original_size = progress_marker.size
 			progress_timer = 0.0
-			is_progressing = true
 			progress_completed = false
+			is_progressing = true
+
+			_start_lock_sound()
+			lockon_timer = 0.0
 		else:
-			progress_timer += _delta
-			beep_timer += _delta
+			progress_timer += delta
+			lockon_timer += delta
 
 			var t = progress_timer / progress_duration
 			var new_size = original_size.lerp(Vector2.ZERO, t)
@@ -98,19 +98,14 @@ func _process(_delta):
 			progress_marker.position = selected.position + (delta_size / 2)
 			progress_marker.size = new_size
 
-			# adjust interval dynamically
-			if progress_timer < 1.5:
-				beep_interval = 0.5
-			elif progress_timer < 2.5:
-				beep_interval = 0.25
-			else:
-				beep_interval = 0.1
-
-			if beep_timer >= beep_interval:
-				GlobalData.PlayLocalSFX("beep")
-				beep_timer = 0.0
+			# Between 2.25s and 2.5s, play "lockon" every 0.1s
+			if progress_timer >= 2.25:
+				if lockon_timer >= 0.08:
+					Plne.PlaySFX("lockon", false)
+					lockon_timer = 0.0
 
 			if progress_timer >= progress_duration and not progress_completed:
+				_stop_lock_sound()
 				var label = selected.get_node_or_null("RichTextLabel")
 				if label:
 					label.visible = true
@@ -118,15 +113,15 @@ func _process(_delta):
 
 	else:
 		if is_progressing:
+			_stop_lock_sound()
 			if progress_marker:
-				beep_timer = 0.0
 				progress_marker.queue_free()
 				progress_marker = null
 
 			if progress_completed and selected:
 				emit_signal("target_acquired", target_object)
-				print("Misl fired at object: ", target_object)
-
+				Plne.PlaySFX("fire")
+				print("Missile fired at object: ", target_object)
 
 			if previous_selection:
 				var label = previous_selection.get_node_or_null("RichTextLabel")
@@ -134,5 +129,34 @@ func _process(_delta):
 					label.visible = false
 
 			progress_timer = 0.0
+			lockon_timer = 0.0
 			is_progressing = false
 			progress_completed = false
+
+func _start_lock_sound():
+	if lock_sfx_player and is_instance_valid(lock_sfx_player):
+		return
+
+	lock_sfx_player = AudioStreamPlayer.new()
+	var stream = load("res://assets/audio/lock.ogg")
+
+	if stream is AudioStreamOggVorbis:
+		stream = stream.duplicate()
+		stream.loop = true
+	elif stream is AudioStreamMP3:
+		stream = stream.duplicate()
+		stream.loop = true
+	elif stream is AudioStreamWAV:
+		stream = stream.duplicate()
+		stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
+
+	lock_sfx_player.stream = stream
+	add_child(lock_sfx_player)
+	lock_sfx_player.play()
+
+
+func _stop_lock_sound():
+	if lock_sfx_player and is_instance_valid(lock_sfx_player):
+		lock_sfx_player.stop()
+		lock_sfx_player.queue_free()
+		lock_sfx_player = null
