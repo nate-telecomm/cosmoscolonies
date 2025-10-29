@@ -5,6 +5,9 @@ var _is_transitioning: bool = false
 
 func _ready() -> void:
 	PlanetName = get_parent().name
+	
+func _process(delta: float):
+	print(GlobalData.current_planet)
 
 func _on_body_entered(body: Node3D) -> void:
 	if _is_transitioning:
@@ -15,7 +18,7 @@ func _on_body_entered(body: Node3D) -> void:
 	call_deferred("_change_scene", body)
 
 func _change_scene(player: CharacterBody3D) -> void:
-	if PlanetName != "Space":
+	if GlobalData.current_planet == "Space":
 		player._origin_shift_enabled = false
 		PopupService.popup("Entering " + PlanetName + "...")
 		var tree: SceneTree = get_tree()
@@ -53,7 +56,6 @@ func _change_scene(player: CharacterBody3D) -> void:
 
 		_is_transitioning = false
 	else:
-		PopupService.popup("Exitting " + PlanetName + "...")
 		var tree: SceneTree = get_tree()
 		var old_scene: Node = tree.current_scene
 
@@ -78,11 +80,14 @@ func _change_scene(player: CharacterBody3D) -> void:
 		await tree.process_frame
 
 		new_scene.add_child(player)
-		player.position = Vector3(0, 0, 0)
+		player.position = Vector3(0, 5000, 0)
+		player.velocity = Vector3.ZERO
 
 		if old_scene and old_scene != new_scene:
 			old_scene.queue_free()
-		GlobalData.PlayLocalMusic("consumatesurvivor.caf")
+
+		_is_transitioning = false
+		#GlobalData.PlayLocalMusic("consumatesurvivor.caf")
 		
 		var pnode: StaticBody3D = get_tree().current_scene.get_node(PlanetName)
 		var size: float = pnode.get_node("CollisionShape3D").shape.radius * 2

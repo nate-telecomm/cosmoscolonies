@@ -25,10 +25,6 @@ PopupService="*res://popupservice.gd"
 RocketService="*res://rocketservice.gd"
 plne="*res://plne/plne.gd"
 
-[display]
-
-window/size/mode=2
-
 [editor]
 
 version_control/plugin_name="GitPlugin"

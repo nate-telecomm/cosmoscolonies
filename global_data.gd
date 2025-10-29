@@ -5,6 +5,7 @@ var password: String
 var maindelta: float
 var chat_messages: Array = []
 var lerp_speed: float = 8.0
+var current_planet: String
 
 func array_to_string(arr: Array) -> String:
 	var result_string = ""
@@ -107,6 +108,7 @@ func init_connect() -> void:
 	connected = true
 
 func _process(delta):
+	current_planet = get_tree().current_scene.name
 	maindelta = delta
 	if connected:
 		var player = get_tree().current_scene.get_node_or_null("Player")
@@ -161,7 +163,6 @@ func update_chat(chat_data: Array) -> void:
 
 func update_other_players(players_data):
 	var now = Time.get_unix_time_from_system()
-	var current_planet = get_tree().current_scene.name
 	var current_players = {}
 	var planets = {}
 	
@@ -246,6 +247,7 @@ func PlayLocalSFX(option: String) -> void:
 	print(stream)
 
 func PlayLocalMusic(track: String) -> void:
+	"""
 	var sfx: AudioStreamPlayer = get_tree().current_scene.get_node("Player").get_node("Music")
 	if sfx:
 		sfx.stop()
@@ -255,3 +257,4 @@ func PlayLocalMusic(track: String) -> void:
 		sfx.stream = stream
 		sfx.play()
 	print(stream)
+	"""
