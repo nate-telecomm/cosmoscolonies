@@ -14,11 +14,12 @@ var SendButton: RichTextLabel
 var RocketStats: Dictionary
 @export var RocketJSON: String
 var WarnedAboutFuel: bool = false
-
+@export var Misl: PackedScene = load("res://mislProjectile.tscn")
 var SPEED: float = 100.0
 var ACCEL: float = 6000.0
 @export var RemainingFuel: float = 0.0
 @export var _origin_shift_enabled: bool = true
+@onready var Root: Node = get_parent()
 
 func _text_submitted():
 	if EnterBox.text != "":
@@ -32,6 +33,9 @@ func _rocket_Engine() -> StaticBody3D:
 	return get_node("Rocket").get_node("Engine")
 
 func _ready() -> void:
+	if not MislHud.is_connected("target_acquired", fire_missile):
+		MislHud.connect("target_acquired", fire_missile)
+
 	GlobalData.PlayLocalMusic("consumatesurvivor.caf")
 	camera1 = $firstperson
 	camera2 = $raycamera/thirdperson
@@ -136,7 +140,7 @@ func _physics_process(delta: float) -> void:
 func _handle_origin_shift():
 	if !_origin_shift_enabled:
 		return
-	var threshold: float = 5.0
+	var threshold: float = 0.0
 	if global_position.length() > threshold:
 		var offset: Vector3 = global_position
 		for node in get_tree().get_nodes_in_group("movable"):
@@ -148,3 +152,12 @@ func _handle_origin_shift():
 				other.global_position -= offset
 		global_position = Vector3.ZERO
 		print("Origin shifted by: ", offset)
+
+func fire_missile(TargetObject: Node):
+	
+	var IMisl = Misl.instantiate()
+	IMisl.TargetObject = TargetObject
+	IMisl.position = self.position + Vector3(0,0.1,0)
+	Root.add_child(IMisl)
+	print("Misl Parent: ", IMisl.get_parent())
+	print("Misl Target: ", IMisl.TargetObject)

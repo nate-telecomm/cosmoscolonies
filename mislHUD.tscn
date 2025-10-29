@@ -1,9 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://brruuobyqd8mb"]
+[gd_scene load_steps=2 format=3 uid="uid://brruuobyqd8mb"]
 
 [ext_resource type="Script" uid="uid://ux4a8dwuw0bk" path="res://mislHUD.gd" id="1_4td12"]
-
-[sub_resource type="AudioStreamOggVorbis" id="AudioStreamOggVorbis_4td12"]
-loop = true
 
 [node name="mislHUD" type="CanvasLayer"]
 
@@ -15,6 +12,3 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_4td12")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = SubResource("AudioStreamOggVorbis_4td12")

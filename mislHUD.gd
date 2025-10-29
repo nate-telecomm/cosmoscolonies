@@ -1,3 +1,4 @@
+
 extends Control
 
 signal target_acquired(target_object)
@@ -8,6 +9,10 @@ signal target_acquired(target_object)
 var tracked_objects: Array = []
 var markers: Array = []
 var lockon_timer: float
+
+var can_fire: bool = true
+var fire_cooldown_timer: float = 0.0
+var fire_cooldown_duration: float = 1.0
 
 @export var look_at_scale_increase: float = 15.0
 @export var look_at_angle_threshold: float = 5.0
@@ -37,7 +42,14 @@ func _ready():
 		add_child(marker)
 		markers.append(marker)
 		base_sizes.append(marker.size)
+
 func _process(delta: float) -> void:
+	if not can_fire:
+		fire_cooldown_timer += delta
+		if fire_cooldown_timer >= fire_cooldown_duration:
+			can_fire = true
+			fire_cooldown_timer = 0.0
+
 	camera = get_viewport().get_camera_3d()
 	if not camera:
 		return
@@ -98,7 +110,6 @@ func _process(delta: float) -> void:
 			progress_marker.position = selected.position + (delta_size / 2)
 			progress_marker.size = new_size
 
-			# Between 2.25s and 2.5s, play "lockon" every 0.1s
 			if progress_timer >= 2.25:
 				if lockon_timer >= 0.08:
 					Plne.PlaySFX("lockon", false)
@@ -118,20 +129,21 @@ func _process(delta: float) -> void:
 				progress_marker.queue_free()
 				progress_marker = null
 
-			if progress_completed and selected:
-				emit_signal("target_acquired", target_object)
-				Plne.PlaySFX("fire")
-				print("Missile fired at object: ", target_object)
-
 			if previous_selection:
 				var label = previous_selection.get_node_or_null("RichTextLabel")
 				if label:
 					label.visible = false
 
+			if progress_completed and selected and can_fire:
+				Plne.PlaySFX("fire")
+				emit_signal("target_acquired", target_object)
+				print("Missile fired at object: ", target_object)
+				can_fire = false
+
 			progress_timer = 0.0
 			lockon_timer = 0.0
-			is_progressing = false
 			progress_completed = false
+			is_progressing = false
 
 func _start_lock_sound():
 	if lock_sfx_player and is_instance_valid(lock_sfx_player):
@@ -143,17 +155,10 @@ func _start_lock_sound():
 	if stream is AudioStreamOggVorbis:
 		stream = stream.duplicate()
 		stream.loop = true
-	elif stream is AudioStreamMP3:
-		stream = stream.duplicate()
-		stream.loop = true
-	elif stream is AudioStreamWAV:
-		stream = stream.duplicate()
-		stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
 
 	lock_sfx_player.stream = stream
 	add_child(lock_sfx_player)
 	lock_sfx_player.play()
-
 
 func _stop_lock_sound():
 	if lock_sfx_player and is_instance_valid(lock_sfx_player):

@@ -7,7 +7,8 @@ func _ready() -> void:
 	PlanetName = get_parent().name
 	
 func _process(delta: float):
-	print(GlobalData.current_planet)
+	#print(GlobalData.current_planet)
+	pass
 
 func _on_body_entered(body: Node3D) -> void:
 	if _is_transitioning:
