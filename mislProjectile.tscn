@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ca5ccsxm1fdhu"]
+[gd_scene load_steps=18 format=3 uid="uid://ca5ccsxm1fdhu"]
 
 [ext_resource type="Script" uid="uid://ceofdp1dynw3v" path="res://mislProjectile.gd" id="1_i4eb8"]
 
@@ -47,21 +47,32 @@ point_count = 2
 albedo_color = Color(1, 0.34509805, 0, 1)
 emission_enabled = true
 emission = Color(1, 0.34509805, 0, 1)
-emission_energy_multiplier = 1600000.0
+emission_energy_multiplier = 160.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_i4eb8"]
 material = SubResource("StandardMaterial3D_h6lot")
-radius = 1000.0
-height = 2000.0
+radius = 0.1
+height = 0.2
 
 [sub_resource type="Curve" id="Curve_h6lot"]
 _limits = [0.0, 0.7, 0.0, 1.0]
-_data = [Vector2(0, 0.19101131), 0.0, 0.0, 0, 0, Vector2(1, 0.7), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.7), 0.0, 0.0, 0, 0, Vector2(1, 0.7), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_m3gwk"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.75000006, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
+
+[sub_resource type="SphereMesh" id="SphereMesh_h6lot"]
+material = SubResource("StandardMaterial3D_h6lot")
+
+[sub_resource type="Curve" id="Curve_cc1ap"]
+_data = [Vector2(0, 0.49438208), 0.0, 0.0, 0, 0, Vector2(0.0058139563, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_i4eb8"]
+radius = 0.001
+height = 0.01
 
 [node name="mislProjectile" type="RigidBody3D"]
 gravity_scale = 0.0
@@ -117,7 +128,8 @@ scale_amount_curve = SubResource("Curve_i4eb8")
 
 [node name="CPUParticles3D2" type="CPUParticles3D" parent="."]
 visible = false
-amount = 1000
+emitting = false
+amount = 250
 lifetime = 25.0
 one_shot = true
 explosiveness = 1.0
@@ -126,10 +138,34 @@ local_coords = true
 mesh = SubResource("SphereMesh_i4eb8")
 spread = 180.0
 gravity = Vector3(0, 0, 0)
-initial_velocity_min = 0.75
-initial_velocity_max = 0.8
+initial_velocity_max = 10.0
 linear_accel_min = -15.0
 linear_accel_curve = SubResource("Curve_h6lot")
 scale_amount_curve = SubResource("Curve_m3gwk")
 
+[node name="CPUParticles3D3" type="CPUParticles3D" parent="."]
+visible = false
+emitting = false
+amount = 150
+lifetime = 35.0
+one_shot = true
+explosiveness = 1.0
+mesh = SubResource("SphereMesh_h6lot")
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.2
+initial_velocity_max = 5.0
+linear_accel_min = -25.0
+linear_accel_max = -25.0
+linear_accel_curve = SubResource("Curve_cc1ap")
+scale_amount_curve = SubResource("Curve_m3gwk")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.022, 0)
+shape = SubResource("CapsuleShape3D_i4eb8")
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

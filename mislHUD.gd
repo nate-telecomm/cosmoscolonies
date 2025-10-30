@@ -137,7 +137,6 @@ func _process(delta: float) -> void:
 			if progress_completed and selected and can_fire:
 				Plne.PlaySFX("fire")
 				emit_signal("target_acquired", target_object)
-				print("Missile fired at object: ", target_object)
 				can_fire = false
 
 			progress_timer = 0.0

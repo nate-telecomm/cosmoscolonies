@@ -33,6 +33,7 @@ func _rocket_Engine() -> StaticBody3D:
 	return get_node("Rocket").get_node("Engine")
 
 func _ready() -> void:
+	add_to_group("player")
 	if not MislHud.is_connected("target_acquired", fire_missile):
 		MislHud.connect("target_acquired", fire_missile)
 
@@ -154,10 +155,11 @@ func _handle_origin_shift():
 		print("Origin shifted by: ", offset)
 
 func fire_missile(TargetObject: Node):
-	
+	Plne.ScreenShake(50, camera1 if isFirst else camera2)
 	var IMisl = Misl.instantiate()
 	IMisl.TargetObject = TargetObject
 	IMisl.position = self.position + Vector3(0,0.1,0)
 	Root.add_child(IMisl)
+	print("Missile fired at object: ", IMisl.TargetObject)
 	print("Misl Parent: ", IMisl.get_parent())
 	print("Misl Target: ", IMisl.TargetObject)
