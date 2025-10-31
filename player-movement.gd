@@ -158,7 +158,7 @@ func fire_missile(TargetObject: Node):
 	Plne.ScreenShake(50, camera1 if isFirst else camera2)
 	var IMisl = Misl.instantiate()
 	IMisl.TargetObject = TargetObject
-	IMisl.position = self.position + Vector3(0,0.1,0)
+	IMisl.position = self.position + Vector3(0,0.01,0)
 	Root.add_child(IMisl)
 	print("Missile fired at object: ", IMisl.TargetObject)
 	print("Misl Parent: ", IMisl.get_parent())

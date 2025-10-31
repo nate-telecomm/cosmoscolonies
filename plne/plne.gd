@@ -77,7 +77,7 @@ func _process(delta):
 
 func shake(delta):
 	var amount = pow(trauma, trauma_power)
-	var time = float(Time.get_ticks_msec()) / 100.0
+	var time = float(Time.get_ticks_msec()) / 1.0
 
 	var target_offset = Vector3(
 		noise.get_noise_2d(noise.seed, time) * max_offset.x * amount,
