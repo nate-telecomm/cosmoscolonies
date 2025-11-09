@@ -23,8 +23,8 @@ config/icon="res://assets/images/logo.png"
 GlobalData="*res://global_data.gd"
 PopupService="*res://popupservice.gd"
 RocketService="*res://rocketservice.gd"
-Plne="*res://plne/plne.gd"
-MislHud="*res://mislHUD.gd"
+AltSystem="*res://AltSystem/AltSystem.gd"
+MissileHud="*res://missileHUD.gd"
 
 [editor]
 

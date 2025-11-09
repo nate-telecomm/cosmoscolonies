@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://brruuobyqd8mb"]
 
-[ext_resource type="Script" uid="uid://ux4a8dwuw0bk" path="res://mislHUD.gd" id="1_4td12"]
+[ext_resource type="Script" uid="uid://ux4a8dwuw0bk" path="res://missileHUD.gd" id="1_4td12"]
 
 [node name="mislHUD" type="CanvasLayer"]
 

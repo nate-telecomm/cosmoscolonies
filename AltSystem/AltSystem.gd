@@ -6,7 +6,7 @@ var active_sfx: Dictionary = {}
 @export var max_offset = Vector3(0.5, 0.5, 0.5)
 @export var max_roll = 0.1
 @export var trauma_power = 2
-@export var shake_lerp_speed = 10.0 # How fast the shake lerps (higher = snappier)
+@export var shake_lerp_speed = 10.0
 
 var camera: Camera3D
 var trauma = 0.0
@@ -62,7 +62,6 @@ func _ready() -> void:
 		_original_rot = camera.rotation
 
 func _process(delta):
-	#camera = get_viewport().get_camera_3d()
 	if not camera:
 		return
 

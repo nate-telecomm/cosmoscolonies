@@ -112,7 +112,7 @@ func _process(delta: float) -> void:
 
 			if progress_timer >= 2.25:
 				if lockon_timer >= 0.08:
-					Plne.PlaySFX("lockon", false)
+					AltSystem.PlaySFX("lockon", false)
 					lockon_timer = 0.0
 
 			if progress_timer >= progress_duration and not progress_completed:
@@ -135,7 +135,7 @@ func _process(delta: float) -> void:
 					label.visible = false
 
 			if progress_completed and selected and can_fire:
-				Plne.PlaySFX("fire")
+				AltSystem.PlaySFX("fire")
 				emit_signal("target_acquired", target_object)
 				can_fire = false
 

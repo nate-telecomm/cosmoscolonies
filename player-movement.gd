@@ -14,7 +14,7 @@ var SendButton: RichTextLabel
 var RocketStats: Dictionary
 @export var RocketJSON: String
 var WarnedAboutFuel: bool = false
-@export var Misl: PackedScene = load("res://mislProjectile.tscn")
+@export var Missile: PackedScene = load("res://missileProjectile.tscn")
 var SPEED: float = 100.0
 var ACCEL: float = 6000.0
 @export var RemainingFuel: float = 0.0
@@ -34,8 +34,8 @@ func _rocket_Engine() -> StaticBody3D:
 
 func _ready() -> void:
 	add_to_group("player")
-	if not MislHud.is_connected("target_acquired", fire_missile):
-		MislHud.connect("target_acquired", fire_missile)
+	if not MissileHud.is_connected("target_acquired", fire_missile):
+		MissileHud.connect("target_acquired", fire_missile)
 
 	GlobalData.PlayLocalMusic("consumatesurvivor.caf")
 	camera1 = $firstperson
@@ -155,11 +155,11 @@ func _handle_origin_shift():
 		print("Origin shifted by: ", offset)
 
 func fire_missile(TargetObject: Node):
-	Plne.ScreenShake(50, camera1 if isFirst else camera2)
-	var IMisl = Misl.instantiate()
-	IMisl.TargetObject = TargetObject
-	IMisl.position = self.position + Vector3(0,0.01,0)
-	Root.add_child(IMisl)
-	print("Missile fired at object: ", IMisl.TargetObject)
-	print("Misl Parent: ", IMisl.get_parent())
-	print("Misl Target: ", IMisl.TargetObject)
+	AltSystem.ScreenShake(50, camera1 if isFirst else camera2)
+	var IMissile = Missile.instantiate()
+	IMissile.TargetObject = TargetObject
+	IMissile.position = self.position + Vector3(0,0.01,0)
+	Root.add_child(IMissile)
+	print("Missile fired at object: ", IMissile.TargetObject)
+	print("Missile Parent: ", IMissile.get_parent())
+	print("Missile Target: ", IMissile.TargetObject)

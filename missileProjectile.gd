@@ -37,9 +37,9 @@ func detonate():
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body == TargetObject:
-		print("Misl Hit Target Object: ", TargetObject)
+		print("Missile Hit Target Object: ", TargetObject)
 	else:
-		print("Misl Hit: ", body)
+		print("Missile Hit: ", body)
 	detonate()
 
 func _trigger_screen_shake():
@@ -47,5 +47,5 @@ func _trigger_screen_shake():
 		if node is Node3D:
 			var distance = global_position.distance_to(node.global_position)
 			if distance <= shake_radius:
-				Plne.ScreenShake(shake_intensity)
+				AltSystem.ScreenShake(shake_intensity)
 				print("Shake triggered for player within", distance, "m")
